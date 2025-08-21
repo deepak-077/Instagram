@@ -1,3 +1,5 @@
+import './App.css'
+
 const people =[
     {
         img:"one.jpg",
@@ -35,8 +37,8 @@ function Suggestion(){
     return (
         <>
         {/* suggestions */}
-        <div className="max-w-[383px] w-full h-[548px] pl-[64px] bg-black text-white">
-            <div className="max-w-[319px] w-full h-[54px] mt-9">
+        <div className="max-w-[383px] w-full h-[580px] pl-[64px] bg-black text-white hidden lg:block">
+            <div className="max-w-[319px] w-full h-[547px] mt-9">
 
             {/* user info */}
                 <div className="w-full max-w-[319px] h-[44px] px-[16px]">
@@ -44,7 +46,7 @@ function Suggestion(){
 
                         {/* image */}
                         <div className="flex justify-center items-center w-[56px] h-[44px]">
-                            <img className="w-[44px] h-[44px] rounded-full bg-amber-700" src="/Instagram_files/flag.jpg" alt="" />
+                            <img className="w-[44px] h-[44px] rounded-full " src="/Instagram_files/flag.jpg" alt="" />
 
                         </div>
 
