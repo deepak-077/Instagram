@@ -1,3 +1,5 @@
+import './App.css'
+
 const stories=[
     {
     img:"chris.jpg",
@@ -30,7 +32,7 @@ function Middle(){
     return(
         <>
         {/* stories and photos */}
-                <div className="flex flex-col max-w-[630px] w-full mt-4 bg-amber-400">
+                <div className="flex flex-col max-w-[630px] w-full mt-4 ">
 
                     {/* stories */}
                     <div className="flex items-center max-w-[630px] w-full h-[124px] py-2 px-[9px] bg-black gap-3">
