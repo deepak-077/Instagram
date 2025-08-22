@@ -1,11 +1,33 @@
 
+import { useState } from 'react'
 import './App.css'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import Home from './Home';
 
 function App() {
-  
+
+ const [username,SetUsername] = useState('');
+ const [password,setPassword] = useState('');
+ const [loggedin,setLoggedin] = useState(false);
+
+function isLoggedin(){
+
+  if(username == 'alpha' && password=='delta'){
+    setLoggedin(true);
+      
+  }
+  else{
+      alert(" error : incorrect username or password ")
+  }
+}
+  if(loggedin){
+    return <Home/>
+
+  } 
 
   return (
-    <div className='flex flex-col justify-center items-center bg-black min-h-screen  '>
+    <div className='flex flex-col justify-center items-center bg-black min-h-screen'>
       
       {/* header */}
       <main className=' flex justify-center items-center w-full max-w-[1306px] h-[555px] '>
@@ -27,17 +49,23 @@ function App() {
 
             {/* username field */}
             <div className='w-full max-w-[270px] min-w-[187px] h-[38px] border-[#262626] border-[0.5px] rounded-sm '>
-              <input className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="text" placeholder='Phone number, username or email address' />
+              <input id='username' className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="text" placeholder='Phone number, username or email address'
+              value={username}
+              onChange={(e)=>SetUsername(e.target.value)}/>
             </div>
 
             {/* password field */}
             <div className='w-full max-w-[270px] min-w-[187px] h-[38px] border-[#262626] border-[0.5px] rounded-sm '>
-              <input className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="text" placeholder='Password' />
+              <input id='pass' className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="password" placeholder='Password' 
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}/>
             </div>
             <div>
 
               {/* login button */}
-              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md mt-2'> Log in</button>
+              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md mt-2'
+              onClick={isLoggedin}> 
+              Log in </button>
             </div>
 
             {/* additional options */}
