@@ -95,4 +95,8 @@ function Sidebar(){
     )
 
 }
+<<<<<<< HEAD
 export default Sidebar;
+=======
+export default Sidebar;
+>>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a

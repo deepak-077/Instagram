@@ -1,8 +1,11 @@
 
 import { useState } from 'react'
 import './App.css'
+<<<<<<< HEAD
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+=======
+>>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
 import Home from './Home';
 
 function App() {
@@ -27,7 +30,11 @@ function isLoggedin(){
   } 
 
   return (
+<<<<<<< HEAD
     <div className='flex flex-col justify-center items-center bg-black min-h-screen'>
+=======
+    <div className='flex flex-col justify-center items-center bg-black min-h-screen  '>
+>>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
       
       {/* header */}
       <main className=' flex justify-center items-center w-full max-w-[1306px] h-[555px] '>

@@ -17,4 +17,8 @@ function Home(){
         </div>
     )
 }
+<<<<<<< HEAD
 export default Home;
+=======
+export default Home;
+>>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a

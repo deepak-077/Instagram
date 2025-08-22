@@ -114,4 +114,8 @@ function Suggestion(){
     )
 }
 
+<<<<<<< HEAD
 export default Suggestion;
+=======
+export default Suggestion;
+>>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
