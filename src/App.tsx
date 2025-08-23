@@ -1,18 +1,17 @@
 
 import { useState } from 'react'
 import './App.css'
-<<<<<<< HEAD
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-=======
->>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
+
 import Home from './Home';
+import Signup from './Signup';
+import Footer from './Footer';
 
 function App() {
 
  const [username,SetUsername] = useState('');
  const [password,setPassword] = useState('');
  const [loggedin,setLoggedin] = useState(false);
+ const [signup,setSignup] = useState(false);
 
 function isLoggedin(){
 
@@ -29,13 +28,19 @@ function isLoggedin(){
 
   } 
 
+  
+  if(signup){
+    console.log("signup")
+    return <Signup/>
+
+  }
+    
+  
+
   return (
-<<<<<<< HEAD
+
     <div className='flex flex-col justify-center items-center bg-black min-h-screen'>
-=======
-    <div className='flex flex-col justify-center items-center bg-black min-h-screen  '>
->>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
-      
+
       {/* header */}
       <main className=' flex justify-center items-center w-full max-w-[1306px] h-[555px] '>
         <article className='flex  flex-col md:flex-row items-center w-full max-w-[935px] h-auto  mt-0 mx-0  xs:mt-8 md:mx-4  lg:mx-[186px]  pb-[32px]'>
@@ -67,10 +72,10 @@ function isLoggedin(){
               value={password}
               onChange={(e)=>setPassword(e.target.value)}/>
             </div>
-            <div>
+            <div className='flex justify-center'>
 
               {/* login button */}
-              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md mt-2'
+              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md my-2 mx-10'
               onClick={isLoggedin}> 
               Log in </button>
             </div>
@@ -102,8 +107,14 @@ function isLoggedin(){
         </div>
         {/* Sign up */}
         <div className='flex justify-center w-full min-w-[250px] max-w-[350px] h-[61px] py-[10px] text-[14px]'>
-          <span className=' flex justify-center w-[236px] h-[41px] text-white  text-[14px]'>
-             Don't have an account? <p className='text-[#708dff] text-[14px] ml-1'>Sign up</p>
+          <span className=' flex justify-center items-center w-[236px] h-[41px] text-white  text-[14px]'>
+             Don't have an account? 
+             
+             <button 
+             onClick={()=>{
+              setSignup(true);
+             }}
+             className='text-[#708dff] text-[14px] ml-1 hover:cursor-pointer' >Sign up</button>
           </span>
         </div>
 
@@ -114,27 +125,7 @@ function isLoggedin(){
       </main>
 
       {/* footer */}
-      <footer className=' px-[16px] w-full min-w-[250px]'>
-        <div className=' mb-[52px] h-[83px]'>
-          <div className='flex flex-wrap justify-center w-full max-w-[1273px] text-white text-[12px] gap-2 sm:gap-4 mx-auto pb-1'>
-          <span className="whitespace-nowrap">Meta</span> 
-          <span className="whitespace-nowrap">About</span> 
-          <span className="whitespace-nowrap">Blog</span> 
-          <span className="whitespace-nowrap">Jobs</span> <span className="whitespace-nowrap">Help</span> <span className="whitespace-nowrap">API</span>
-          <span className="whitespace-nowrap">Privacy</span> <span className="whitespace-nowrap">Terms</span> <span className="whitespace-nowrap">Locations</span> <span className="whitespace-nowrap">Instagram Lite</span> <span className="whitespace-nowrap">Meta AI</span> 
-          <span className="whitespace-nowrap">Meta AI articles</span> <span className="whitespace-nowrap">Threads</span> <span className="whitespace-nowrap">Contact uploading and non-users</span> <span className="whitespace-nowrap">Meta Verified</span>
-        </div>
-
-        <div className='flex  flex-wrap justify-center w-full max-w-[1273px] text-white text-[12px] my-[12px]'>
-          <span className="whitespace-nowrap"> English (UK)</span>
-          <span className="whitespace-nowrap"> 2025 Instagram from Meta</span>
-        </div>
-
-
-        </div>
-        
-
-      </footer>
+      <Footer/>
       
       
     </div>

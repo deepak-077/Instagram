@@ -1,3 +1,4 @@
+import Searchbar from "./Searchbar";
 import Sidebar from "./Sidebar";
 import Middle from "./Stories_photos";
 import Suggestion from "./Suggestion";
@@ -14,11 +15,14 @@ function Home(){
                 <Suggestion/>
 
             </div>
+
+            {/* search bar only showing on small devices */}
+            <Searchbar/>
+           
         </div>
     )
 }
-<<<<<<< HEAD
+
 export default Home;
-=======
-export default Home;
->>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
+
+

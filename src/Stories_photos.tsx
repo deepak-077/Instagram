@@ -35,9 +35,9 @@ function Middle(){
                 <div className="flex flex-col max-w-[630px] w-full mt-4 ">
 
                     {/* stories */}
-                    <div className="flex items-center max-w-[630px] w-full h-[124px] py-2 px-[9px] bg-black gap-3">
+                    <div className="flex items-center overflow-x-auto flex-nowrap max-w-[630px] w-full h-[124px] py-2 px-[9px] bg-black gap-3">
                         {stories.map((item,index)=>(
-                            <li className="flex items-center justify-center w-full max-w-[90px] h-[108px]">
+                            <li className="flex items-center shrink-0 justify-center w-full max-w-[90px] h-[108px]">
                             
                             <div className="w-full max-w-[90px] h-[102px] flex flex-col items-center">
                                 
@@ -195,8 +195,5 @@ function Middle(){
     )
 }
 
-<<<<<<< HEAD
 export default Middle;
-=======
-export default Middle;
->>>>>>> 7eed756593fcf0f0616c1a5b65850ee78e1c590a
+
