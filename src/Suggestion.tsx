@@ -66,51 +66,49 @@ function Suggestion(){
                     </div>
                 </div>
 
-                        {/* suggested for you outer container*/}
-                        <div className="w-[319px] h-[351px] mt-6 mb-2">
+                {/* suggested for you outer container*/}
+                <div className="w-[319px] h-[351px] mt-6 mb-2">
 
-                            {/* inner div */}
-                            <div className=" w-full max-w-[287px] h-[351px] mx-4 text-sm">
-                                <div className="flex justify-between items-center w-max-[319px] h-[19px] py-1 px-4 ">
-                                    <div className="max-w-[246px] h-[11px]">
-                                    <span className="h-[11px]">
-                                        Suggested for you
-                                    </span>
+                    {/* inner div */}
+                    <div className=" w-full max-w-[287px] h-[351px] mx-4 text-sm">
+                        <div className="flex justify-between items-center w-max-[319px] h-[19px] py-1 px-4 ">
+                            <div className="max-w-[246px] h-[11px]">
+                                <span className="h-[11px]">
+                                    Suggested for you
+                                </span>
                     
-                                </div>
-                                <span className="text-xs">See All</span>
-
-                                </div>
-                                
-                                {/* suggested people */}
-                                <div className="w-full max-w-[315px] h-[316px] py-2">
-
-                                    {people.map((item,index)=>(
-                                        
-                                        
-                                    <div className="flex justify-between w-full max-w-[315px] h-[60px] py-2 px-4 bg-black gap-2">
-                                        {/* picture */}
-                                        <div className="max-w-[56px] h-[44px] pr-3">
-                                            <img className="max-w-[44px] h-[44px] rounded-full" src={`/Instagram_files/${item.img}`} alt="" />
-
-                                        </div>
-                                        
-                                        {/* name and reason for suggestion */}
-                                        <div className=" flex flex-col max-w-[177px] h-[34px]">
-                                            <span className="font-semibold">${item.username}</span>
-                                            <span className="w-full max-w-[177px] text-ellipsis whitespace-nowrap overflow-hidden text-xs">{item.reason}</span>
-                                        </div>
-
-                                        <div className="max-w-[38px] h-[16px] text-xs">follow</div>
-
-                                    </div>    
-                                    ))}
-                                </div>
                             </div>
-                     </div>                        
+                            <span className="text-xs">See All</span>
+
+                        </div>
+                                
+                        {/* suggested people */}
+                        <div className="w-full max-w-[315px] h-[316px] py-2">
+
+                            {people.map((item,index)=>(
+                                <div className="flex justify-between w-full max-w-[315px] h-[60px] py-2 px-4 bg-black gap-2">
+                                    {/* picture */}
+                                    <div className="max-w-[56px] h-[44px] pr-3">
+                                        <img className="max-w-[44px] h-[44px] rounded-full" src={`/Instagram_files/${item.img}`} alt="" />
+
+                                    </div>
+                                        
+                                    {/* name and reason for suggestion */}
+                                    <div className=" flex flex-col max-w-[177px] h-[34px]">
+                                        <span className="font-semibold">${item.username}</span>
+                                        <span className="w-full max-w-[177px] text-ellipsis whitespace-nowrap overflow-hidden text-xs">{item.reason}</span>
+                                    </div>
+
+                                    <div className="max-w-[38px] h-[16px] text-xs">follow</div>
+
+                                </div>    
+                                    ))}
+                        </div>
                     </div>
-                </div>
-        </>
+                </div>                        
+            </div>
+        </div>
+    </>
     )
 }
 

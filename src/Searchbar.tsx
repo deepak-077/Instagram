@@ -1,7 +1,7 @@
 function Searchbar(){
     return(
          <div className="flex justify-between items-center w-screen  h-[60px] md:hidden text-white px-4">
-                {/* logo and dropdown */}
+                {/* logo and dropdown icon*/}
                 <div className="w-full max-w-[423px] h-[31px]">
                     <div className="flex items-center w-full max-w-[131px] h-[31px]">
                         <img className="w-full max-w-[103px] h-[29px]" src="Instagram white.svg" alt="" />
