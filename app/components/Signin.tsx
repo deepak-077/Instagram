@@ -42,6 +42,9 @@ async function Login(){
     
 
     if(response.status===200){
+      console.log("data = ", response.data)
+      localStorage.setItem("username",response.data.user.username)
+      localStorage.setItem("fullname",response.data.user.fullname)
       router.push("/home")
     }
 

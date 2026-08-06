@@ -1,3 +1,5 @@
+"use client"
+import { useEffect, useState } from "react";
 import Searchbar from "../components/Searchbar";
 import Sidebar from "../components/Sidebar";
 import Middle from "../components/Stories_photos";
@@ -5,6 +7,8 @@ import Suggestion from "../components/Suggestion";
 
 
 export default function Home(){
+    
+   
     return(
         //parent container
         <div className="flex flex-col-reverse md:flex-row bg-black ">

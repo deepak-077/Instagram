@@ -1,4 +1,4 @@
-
+import useUserInfo from "./userInfo";
 const people =[
     {
         img:"one.jpg",
@@ -33,10 +33,12 @@ const people =[
 ]
 
 function Suggestion(){
+    const {username,fullname}=useUserInfo();
+
     return (
         <>
         {/* suggestions */}
-        <div className="max-w-[383px] w-full h-[580px] pl-[64px] bg-black text-white hidden lg:block">
+        <div className="max-w-[383px] w-full h-[580px] pl-[64px] bg-black text-white hidden lg:block ">
             <div className="max-w-[319px] w-full h-[547px] mt-9">
 
             {/* user info */}
@@ -51,8 +53,8 @@ function Suggestion(){
 
                         {/* name and username */}
                          <div className="flex flex-col w-full max-w-[180px] h-[36px] text-sm">
-                            <a className="font-semibold" href="">iamuser</a>
-                                <span>Delta</span>
+                            <a className="font-semibold" href="">{username}</a>
+                                <span>{fullname}</span>
 
                         </div>
 
