@@ -2,15 +2,19 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 
 export default function Signin() {
 
- const [username,SetUsername] = useState('');
- const [password,setPassword] = useState('');
- const [loggedin,setLoggedin] = useState(false);
- const [signup,setSignup] = useState(false);
+const [username,SetUsername] = useState('');
+const [password,setPassword] = useState('');
+const [loggedin,setLoggedin] = useState(false);
+const [signup,setSignup] = useState(false);
+
+const router = useRouter()
 
 async function isLoggedin(){
 
@@ -42,11 +46,7 @@ async function isLoggedin(){
   } 
 
   
-  if(signup){
-    console.log("signup")
-    return <Signup/>
-
-  }
+  
 
   return (
    <div className='flex flex-col justify-center items-center bg-black min-h-screen'>
@@ -65,7 +65,7 @@ async function isLoggedin(){
         
         <div className='w-full min-w-[250px] max-w-[350px] h-[408px] py-[10px] mb-[10px] flex flex-col justify-center items-center'>
 
-          <img className='w-[175px] h-[51px]' src='Instagram white.svg'></img>
+          <img className='w-[175px] h-[51px]' src='Instagram_white.svg'></img>
 
           <div className='w-full min-w-[250px] max-w-[350px] h-[223px] flex flex-col items-center gap-2 mt-0 sm:mt-6'> 
 
@@ -99,19 +99,22 @@ async function isLoggedin(){
             </div>
 
             {/* login with facebook */}
-            <div className='flex justify-center max-w-[270px] min-w-[187px] w-full h-[20px] mt-4'>
+            <Link href={"https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Foidc%2F%3Fapp_id%3D124024574287414%26redirect_uri%3Dhttps%253A%252F%252Fwww.instagram.com%252Faccounts%252Fsignupviafb%252F%26response_type%3Dcode%26scope%3Dopenid%2Bemail%2Bprofile%2Blinking%26state%3DATpRdDugRCHd5EvpzC93apLUHo5Zy1hjuRLIxvHXI23bal1YEsZbxGlkNfJQzODE6q3tz0Hq6Cx4EGQuX3wxf29ZrwuBkJRtxPfLhBjyNeQXhNj1ia5uw9CAJwcws6-iw8mik_UgJGZs21vWT4-BP6dhyYM_D4PWpPgywg1fe9ORwaOHD_tle_eC42TKzoeM5NbZRqNYj8IdRi-b7GuvKWUxfioXvHGd_g0znZsqTXp9P6jzgYUFb-r2-SLapChgx4mxf1CtIp7RGB_cJiIrs9P8Xw"}>
+
+            <div className='flex justify-center max-w-[270px] min-w-[187px] w-full h-[20px] mt-4 cursor-pointer'>
               <div className='mr-[4px] px-[4px]'>
                 <img className='w-[20px] h-[20px]  bg-[#0095f6] rounded-full' src="Facebook.png" alt="" />
               </div>
-              <button className='text-[#0095f6] font-semibold text-[14px]'>Log in with Facebook</button>
+              <div className='text-[#0095f6] font-semibold text-[14px]'>Log in with Facebook</div>
 
             </div>
-          
+            </Link>
+            
           </div>
 
           {/* forgotten password */}
           <div className='mt-4 '>
-            <a className='text-white text-[14px]' href=""> Forgotten your password?</a>
+            <Link className='text-white text-[14px]' href="https://www.instagram.com/accounts/password/reset/?hl=en"> Forgotten your password?</Link>
           </div>
 
         </div>
@@ -120,11 +123,9 @@ async function isLoggedin(){
           <span className=' flex justify-center items-center w-[236px] h-[41px] text-white  text-[14px]'>
              Don't have an account? 
              
-             <button 
-             onClick={()=>{
-              setSignup(true);
-             }}
-             className='text-[#708dff] text-[14px] ml-1 hover:cursor-pointer' >Sign up</button>
+             <button className='text-[#708dff] text-[14px] ml-1 hover:cursor-pointer' onClick={()=>{
+              router.push("/signup")
+             }}>Sign up</button>
           </span>
         </div>
 

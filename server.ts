@@ -1,13 +1,12 @@
 import express from 'express'
 import cors from 'cors'
-import bodyParser from 'body-parser'
 import { PrismaClient } from '@prisma/client'
 
 const app = express()
 const prisma = new PrismaClient()
 
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 // GET - Do not support request bodies (officially). so we will have to send them in query string
 app.post('/login', async (req, res) => {
@@ -58,8 +57,7 @@ app.post('/signup', async (req,res)=>{
         
             console.log("creating user")
         const newUser = await prisma.user.create({
-	    //user - is the model name defined in schema.prisma
-
+	    
             data:{
                 email,
                 password,
@@ -77,6 +75,6 @@ app.post('/signup', async (req,res)=>{
     }
 })
 
-app.listen(4000,()=>{
+app.listen(3001,()=>{
     console.log("server running")
 })
