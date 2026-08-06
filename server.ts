@@ -9,16 +9,19 @@ app.use(cors())
 app.use(express.json())
 
 // GET - Do not support request bodies (officially). so we will have to send them in query string
+
 app.post('/login', async (req, res) => {
-  const { email, password, username } = req.body;
+  const { identifier, password  } = req.body;
+  console.log("info =" , identifier, password)
 
   try {
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [
-          { email: email },
-          { username: username }
-        ]
+        OR:[
+          {username:identifier},
+          {email:identifier}
+          
+        ] 
       }
     });
 

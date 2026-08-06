@@ -1,4 +1,3 @@
-import './App.css'
 
 const people =[
     {
@@ -46,7 +45,7 @@ function Suggestion(){
 
                         {/* image */}
                         <div className="flex justify-center items-center w-[56px] h-[44px]">
-                            <img className="w-[44px] h-[44px] rounded-full " src="/Instagram_files/flag.jpg" alt="" />
+                            <img className="w-[44px] h-[44px] rounded-full " src="/flag.jpg" alt="" />
 
                         </div>
 
@@ -89,7 +88,7 @@ function Suggestion(){
                                 <div className="flex justify-between w-full max-w-[315px] h-[60px] py-2 px-4 bg-black gap-2">
                                     {/* picture */}
                                     <div className="max-w-[56px] h-[44px] pr-3">
-                                        <img className="max-w-[44px] h-[44px] rounded-full" src={`/Instagram_files/${item.img}`} alt="" />
+                                        <img className="max-w-[44px] h-[44px] rounded-full" src={`/${item.img}`} alt="" />
 
                                     </div>
                                         

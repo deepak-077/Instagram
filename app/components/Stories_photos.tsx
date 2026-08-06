@@ -1,5 +1,6 @@
+"use client"
 import { useState,useRef } from 'react';
-import './App.css'
+
 
 const stories=[
     {
@@ -74,7 +75,7 @@ function handleScrollLeft(){
                     <button className='absolute left-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollLeft}>
                         <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
                         
-                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="Instagram_files/left.png" alt="" />
+                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/left.png" alt="" />
                         </div>
                         
                     </button>
@@ -91,7 +92,7 @@ function handleScrollLeft(){
                     <div className="w-full max-w-[90px] h-[102px] flex flex-col items-center">
                                 
                         <div className="w-full max-w-[89px] h-[89px] border-gray-800 border-3 rounded-full flex justify-center items-center">
-                            <img className="w-full max-w-[74px] h-[74px] rounded-full " src={`/Instagram_files/${item.img}`} alt=" picture" />
+                            <img className="w-full max-w-[74px] h-[74px] rounded-full " src={`/${item.img}`} alt=" picture" />
                         </div>
 
                         <span className="w-full max-w-[66px] h-[16px] text-white text-xs text-center mt-0.5 text-ellipsis overflow-hidden whitespace-nowrap">{item.title}</span>
@@ -105,7 +106,7 @@ function handleScrollLeft(){
              {/* Right Arrow */}
                 <button className='absolute right-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollRight}>
                     <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
-                        <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="Instagram_files/right.png" alt="" />
+                        <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/right.png" alt="" />
                     </div>        
                 </button>
 
@@ -131,7 +132,7 @@ function handleScrollLeft(){
 
                                 {/* dp image */}
                                 <div className="flex items-center max-w-[41px] h-[41px]">
-                                    <img className="max-w-[32px] h-[32px] rounded-full" src="/Instagram_files/mahi.jpg" alt="" />
+                                    <img className="max-w-[32px] h-[32px] rounded-full" src="/mahi.jpg" alt="" />
                                 </div>
 
                                     {/* name and time of upload */}
@@ -140,7 +141,7 @@ function handleScrollLeft(){
                                             <span className=" text-sm">mahindra</span>
                                             {/* verified tag */}
                                             <span className=" flex justify-center items-center max-w-[12px] h-[12px]">
-                                                <img className=" max-w-[12px] h-[12px]" src="/Instagram_files/verified.png" alt="" />
+                                                <img className=" max-w-[12px] h-[12px]" src="/verified.png" alt="" />
                                             </span>
 
 
@@ -164,7 +165,7 @@ function handleScrollLeft(){
 
                         {/*second container - image */}
                         <div className="w-full max-w-[468px] border-gray-600 ">
-                            <img className="w-full max-w-[468px] max-h-[565px] h-auto" src="/Instagram_files/car.jpg" alt="" />
+                            <img className="w-full max-w-[468px] max-h-[565px] h-auto" src="/car.jpg" alt="" />
 
                         </div>
 
@@ -179,23 +180,23 @@ function handleScrollLeft(){
 
                                     {/* like */}
                                     <div className="w-full max-w-[40px] h-[40px] p-2">
-                                        <img className="max-w-[24px] h-[24px]" src="/Instagram_files/like.png" alt="" />
+                                        <img className="max-w-[24px] h-[24px]" src="/like.png" alt="" />
                                     </div>
 
                                     {/* comment */}
                                     <div className="w-full max-w-[40px] h-[40px] p-2">
-                                        <img className="max-w-[24px] h-[24px]" src="/Instagram_files/comment.png" alt="" />
+                                        <img className="max-w-[24px] h-[24px]" src="/comment.png" alt="" />
                                     </div>
 
                                     {/* share */}
                                     <div className="w-full max-w-[40px] h-[40px] p-2">
-                                        <img className="max-w-[24px] h-[24px]" src="/Instagram_files/send.png" alt="" />
+                                        <img className="max-w-[24px] h-[24px]" src="/send.png" alt="" />
                                     </div>
 
                                 </div>
 
                                 <div className="flex items-center">
-                                    <img className="max-w-[24px] h-[24px]" src="/Instagram_files/bookmark.png" alt="" />
+                                    <img className="max-w-[24px] h-[24px]" src="/bookmark.png" alt="" />
                                 </div>
 
                             </section>
@@ -212,7 +213,7 @@ function handleScrollLeft(){
                                 {/* make this to div and style accordingly */}
                                     <span className="flex items-center gap-1">
                                         <span className="font-semibold"> username </span>
-                                        <img className="max-w-[12px] h-[12px]" src="/Instagram_files/verified.png" alt="" />
+                                        <img className="max-w-[12px] h-[12px]" src="/verified.png" alt="" />
                                     </span>
 
                                         Eastman kodak started over a century ago and rose to prominence in the mid -20th century 
@@ -232,7 +233,7 @@ function handleScrollLeft(){
                             <div className="flex items-center max-w-[470px] w-full h-[18px]  mt-2">
                                 <textarea className="text-sm text-gray-300 max-w-[451px] w-full h-[18px]" placeholder="Add a comment..." id=""></textarea>
                                     <span className="w-full max-w-[13px] h-[13px]">
-                                        <img className=" w-full max-w-[13px] h-[13px]" src="/Instagram_files/happy.png" alt="" />
+                                        <img className=" w-full max-w-[13px] h-[13px]" src="/happy.png" alt="" />
                                     </span>
                                     
                             </div>

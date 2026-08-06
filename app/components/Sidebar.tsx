@@ -1,5 +1,5 @@
+"use client"
 import { string } from 'zod';
-import './App.css'
 import { useEffect,useState } from 'react';
 
 const menu=[
@@ -73,7 +73,7 @@ function Sidebar(){
                 <div className="flex justify-center w-full max-w-[48px] h-[96px] xl:max-w-[220px] xl:h-[92px] hidden md:block">
                     <div className="flex justify-center w-full  mt-3 xl:mt-0 xl:pt-[25px]  pb-[23px] xl:pb-[16px] max-w-[48px] h-[92px] xl:max-w-[220px] xl:h-[73px] xl:mb-[19px] xl:px-[12px]">
                         <div className="w-full max-w-[196px] h-[37px]">
-                            <img className="rounded-full w-full max-w-[103px] h-[29px]" src="Instagram white.svg" alt="" />
+                            <img className="rounded-full w-full max-w-[103px] h-[29px]" src="Instagram_white.svg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ function Sidebar(){
                         
                         className="flex justify-center md:justify-start w-full max-w-[48px] h-[52px] xl:max-w-[220px] xl:h-[48px] md:my-0.5 p-3 cursor-pointer">
 
-                            <img className="w-full max-w-[24px] h-[24px]"  src={`/Instagram_files/${item.img}`} alt="" />
+                            <img className="w-full max-w-[24px] h-[24px]"  src={`/${item.img}`} alt="" />
                             <div  className={`flex items-center w-full max-w-[62px] h-[24px] text-white 
                                 ${expanded ==='Search' || expanded ==='Notifications'?'hidden xl:hidden' :'hidden xl:flex'}`}> 
 

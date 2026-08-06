@@ -4,50 +4,61 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import axios from "axios";
+
+
+const fields = [
+  {title:"Phone number, username or email address", name:"identifier"},
+  {title:"Password", name:"password"}
+]
+
 
 
 
 export default function Signin() {
 
-const [username,SetUsername] = useState('');
-const [password,setPassword] = useState('');
-const [loggedin,setLoggedin] = useState(false);
-const [signup,setSignup] = useState(false);
+  const router = useRouter()
 
-const router = useRouter()
+  const [userCredentials, setUserCredentials]=useState({
+    
+    identifier:"",
+    password:""
+  })
+  const [loginError,setLoginError]=useState(false);
 
-async function isLoggedin(){
+  function handleChange(e){
+    const name = e.target.name
 
-  try {
-    const response = await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      setLoggedin(true);
-      console.log(data.message);
-    } else {
-      alert(data.error); // Show error from backend
-    }
-  } catch (error) {
-    console.error('Login failed:', error);
-    alert('Server error during login');
+    setUserCredentials((prev)=>({...prev,[name]:e.target.value}))
   }
 
 
+
+async function Login(){
+
+  try {
+    const response = await axios.post("http://localhost:3001/login", userCredentials )
+
+    
+
+    if(response.status===200){
+      router.push("/home")
+    }
+
+
+  } catch (error) {
+    
+    if(axios.isAxiosError(error) && error.response?.status==401){
+      setLoginError(true)
+    }
+
+    else{
+      console.error('Login failed:', error);
+      alert('Server error during login');
+    }
+  }
 }
-  if(loggedin){
-    return <Home/>
-
-  } 
-
-  
-  
-
+   
   return (
    <div className='flex flex-col justify-center items-center bg-black min-h-screen'>
 
@@ -61,32 +72,40 @@ async function isLoggedin(){
       </div>
 
       {/* credentials div */}
-      <div className='w-full min-w-[250px] max-w-[350px] h-[480px] mt-[12px] flex flex-col justify-center items-center mx-auto'>
+      <div className='w-full min-w-[250px] max-w-[350px] h-auto mt-[12px]  flex flex-col justify-center items-center mx-auto '>
         
-        <div className='w-full min-w-[250px] max-w-[350px] h-[408px] py-[10px] mb-[10px] flex flex-col justify-center items-center'>
+        <div className='w-full min-w-[250px] max-w-[350px] h-[408px]  py-[10px] mb-[10px] flex flex-col justify-center items-center'>
 
           <img className='w-[175px] h-[51px]' src='Instagram_white.svg'></img>
 
-          <div className='w-full min-w-[250px] max-w-[350px] h-[223px] flex flex-col items-center gap-2 mt-0 sm:mt-6'> 
+          <div className='w-full min-w-[250px] max-w-[350px] h-auto flex flex-col items-center gap-2 mt-0 sm:mt-6 '> 
+            
+            {/* error div */}
+            <div className={`${loginError? "flex" : "hidden"} items-center justify-center gap-2 w-full max-w-[280px] min-w-[187px] h-[60px] border-[#262626]  border-[0.5px] rounded-sm mb-1.5 pb-4 `}>
+              
+              <div className="flex items-center size-6">
+                <img className="size-5" src="info.png" alt="" />
+              </div>
+              <span className="text-sm text-white">The login information you entered is incorrect. <Link className="text-[#708Dff]" href="https://www.instagram.com/accounts/password/reset/">Find your account and log in</Link> </span>
+
+            </div>
+
+
 
             {/* username field */}
-            <div className='w-full max-w-[270px] min-w-[187px] h-[38px] border-[#262626] border-[0.5px] rounded-sm '>
-              <input id='username' className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="text" placeholder='Phone number, username or email address'
-              value={username}
-              onChange={(e)=>SetUsername(e.target.value)}/>
-            </div>
+            {fields.map((item,index)=>(
+              <div className='w-full max-w-[280px] min-w-[187px] h-[38px] border-[#262626] border-[0.5px] rounded-sm '>
+              <input className='w-full max-w-[270px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type={item.name==="password"? "password" : "text"} placeholder={item.title} name={item.name}
+                onChange={handleChange}/>
+              </div>
 
-            {/* password field */}
-            <div className='w-full max-w-[270px] min-w-[187px] h-[38px] border-[#262626] border-[0.5px] rounded-sm '>
-              <input id='pass' className='w-full max-w-[260px] min-w-[183px] h-[36px] pt-[9px] pb-[7px] pl-[8px] text-white text-[12px] focus:outline-none' type="password" placeholder='Password' 
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}/>
-            </div>
+            ))}
+            
             <div className='flex justify-center'>
 
               {/* login button */}
-              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md my-2 mx-10'
-              onClick={isLoggedin}> 
+              <button className='w-full max-w-[270px] min-w-[187px] h-[32px] bg-[#4a5df9] font-semibold text-[14px] text-white rounded-md my-2 mx-10 cursor-pointer'
+              onClick={Login}> 
               Log in </button>
             </div>
 
