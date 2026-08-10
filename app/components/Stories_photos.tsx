@@ -42,6 +42,12 @@ const stories=[
 
 
 function Middle(){
+    const [likes,setLikes] = useState(0);
+    const [allcomments,setAllComments]= useState<String[]>([])
+    const [commentActive, setCommentActive] = useState(false);
+    const [showcomments,setShowComments]=useState(false)
+
+    const [currentComment, setCurrentComment] = useState("")
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
 ;
@@ -61,6 +67,21 @@ function handleScrollLeft(){
         scrollRef.current.scrollBy({left:-300,behavior :"smooth"});
         setShowLeftArrow(false);
     }
+}
+
+function addComment(e){
+    if (!currentComment.trim()){
+        return;
+    }
+    setAllComments(prev=>[...prev, currentComment]);
+    setCurrentComment("");
+    setCommentActive(false);
+
+    console.log(allcomments);
+
+}
+function handleComments(){
+    setShowComments(prev=>!prev)
 }
 
     return(
@@ -179,7 +200,7 @@ function handleScrollLeft(){
                                 <div className="flex items-center w-full max-w-[235px] h-[40px]">
 
                                     {/* like */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2">
+                                    <div className="w-full max-w-[40px] h-[40px] p-2 cursor-pointer" onClick={()=>{setLikes(likes+1)}}>
                                         <img className="max-w-[24px] h-[24px]" src="/like.png" alt="" />
                                     </div>
 
@@ -203,11 +224,11 @@ function handleScrollLeft(){
 
                             {/* second section - total likes */}
                             <div className="max-w-[470px] w-full h-[18px]">
-                                707 likes
+                                {likes}
                             </div>
 
                             {/* third section - caption */}
-                            <div className="max-w-[470px] w-full min-h-[18px] max-h-[54px] h-[auto] mt-2">
+                            <div className="max-w-[470px] w-full min-h-[18px] max-h-[54px] h-[auto] mt-2 bg-amber-200">
                                 <span className="flex items-start max-w-[458px] w-full min-h-[18px] max-h-[36px] h-[auto] text-sm"> 
 
                                 {/* make this to div and style accordingly */}
@@ -225,15 +246,26 @@ function handleScrollLeft(){
                             </div>
 
                             {/* number of comments  */}
-                            <div className="max-w-[470px] w-full h-[18px]">
-                                <span className="text-sm text-gray-300">View All 42 Comments</span>
+                            <div className={`max-w-[470px] w-full ${showcomments? "h-auto":"h-[18px]"} `}>
+                                <span className="text-sm text-gray-300" onClick={handleComments}>{showcomments? "hide comments":  `Show ${allcomments.length} Comments`}</span>
+
+                                {showcomments && allcomments.map((item,index)=>(
+                                    <div className='h-[18px]'>{item}</div>
+                                ))}
                             </div>
 
                             {/* add a comment */}
-                            <div className="flex items-center max-w-[470px] w-full h-[18px]  mt-2">
-                                <textarea className="text-sm text-gray-300 max-w-[451px] w-full h-[18px]" placeholder="Add a comment..." id=""></textarea>
+                            <div className="flex items-center max-w-[470px] w-full h-[18px]  mt-2 ">
+                                <textarea className={`text-sm text-gray-300 max-w-[451px] w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
+                                    
                                     <span className="w-full max-w-[13px] h-[13px]">
                                         <img className=" w-full max-w-[13px] h-[13px]" src="/happy.png" alt="" />
+                                    </span>
+
+                                    {/* add comment icon - visible when we type comnt */}
+
+                                    <span className={`${commentActive?"flex bg-amber-400":"hidden"} cursor-pointer w-full max-w-[13px] h-[13px]`} onClick={addComment}>
+                                        <img className=" w-full max-w-[13px] h-[13px]" src="/send.png" alt="" />
                                     </span>
                                     
                             </div>
