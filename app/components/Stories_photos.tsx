@@ -1,44 +1,9 @@
 "use client"
 import { useState,useRef } from 'react';
+import posts from './posts';
+import stories from './stories';
 
 
-const stories=[
-    {
-    img:"chris.jpg",
-    title:"chrishemsworth"
-},
-{
-    img:"sachin.jpg",
-    title:"sachintendulkar"
-},
-{
-    img:"flag.jpg",
-    title:"mahi7781"
-},
-{
-    img:"taylor.jpg",
-    title:"taylorswift"
-},
-{
-    img:"me.jpg",
-    title:"iamdepak"
-},
-{
-    img:"aniket.jpg",
-    title:"aniketxanand"
-},
-{
-    img:"mkbhd.jpg",
-    title:"mkbhd"
-},
-{
-    img:"random.jpg",
-    title:"random"
-},
-
-
-
-]
 
 
 function Middle(){
@@ -87,7 +52,7 @@ function handleComments(){
     return(
         <>
         {/* stories and photos */}
-        <div className="flex flex-col max-w-[630px] w-full mt-4 ">
+        <div className="flex flex-col max-w-[630px] w-full mt-4">
 
             <div className="relative flex items-center max-w-[630px] w-full h-[124px] overflow-hidden">
 
@@ -116,7 +81,7 @@ function handleComments(){
                             <img className="w-full max-w-[74px] h-[74px] rounded-full " src={`/${item.img}`} alt=" picture" />
                         </div>
 
-                        <span className="w-full max-w-[66px] h-[16px] text-white text-xs text-center mt-0.5 text-ellipsis overflow-hidden whitespace-nowrap">{item.title}</span>
+                        <span className="w-full max-w-[66px] h-[16px] text-white text-xs text-center mt-0.5 text-ellipsis overflow-hidden whitespace-nowrap">{item.username}</span>
 
                     </div>
 
@@ -134,7 +99,7 @@ function handleComments(){
             </div>
             
             
-               
+{/* ------------------------------------------------------POST ---------------------------------  */}
                 
 
             
@@ -142,9 +107,10 @@ function handleComments(){
             <div className=" flex justify-center items-center max-w-[630px] w-full bg-black text-white ">
 
                 {/* outer container */}
-                <article className="w-full max-w-[470px] min-h-[660px] max-h-[830px] h-auto">
+                {posts.map((item,index)=>(
+                    <article className="w-full max-w-[470px] min-h-[660px] max-h-[830px] h-auto ">
 
-                    <div className="w-full max-w-[470px] min-h-[660px] max-h-[810px] h-auto mb-5 pb-4">
+                    <div className="w-full max-w-[470px] min-h-[660px] max-h-[810px] h-auto mb-5 pb-4 ">
 
                         {/* first container - username and other info */}
                         <div className="flex max-w-[470px] h-[44px] pb-3 pl-1 bg-black">
@@ -153,13 +119,13 @@ function handleComments(){
 
                                 {/* dp image */}
                                 <div className="flex items-center max-w-[41px] h-[41px]">
-                                    <img className="max-w-[32px] h-[32px] rounded-full" src="/mahi.jpg" alt="" />
+                                    <img className="max-w-[32px] h-[32px] rounded-full" src={item.dp} alt="" />
                                 </div>
 
                                     {/* name and time of upload */}
                                     <div className="flex w-full max-w-[390px] h-[18px] gap-5">
                                         <div className="flex items-center max-w-[60px] h-[18px] gap-1" >
-                                            <span className=" text-sm">mahindra</span>
+                                            <span className=" text-sm">{item.username}</span>
                                             {/* verified tag */}
                                             <span className=" flex justify-center items-center max-w-[12px] h-[12px]">
                                                 <img className=" max-w-[12px] h-[12px]" src="/verified.png" alt="" />
@@ -170,7 +136,7 @@ function handleComments(){
 
                                         <div className=" w-full max-w-[47px] h-[18px] flex items-center gap-1.5">
                                         <span className="max-w-[7px] h-[18px] text-sm">.</span>
-                                        <time className="h-[17px] text-sm max-w-[19px]  "> 2d </time>
+                                        <time className="h-[17px] text-sm max-w-[19px]  "> {item.time} </time>
 
                                         </div>
                                     </div>
@@ -186,7 +152,7 @@ function handleComments(){
 
                         {/*second container - image */}
                         <div className="w-full max-w-[468px] border-gray-600 ">
-                            <img className="w-full max-w-[468px] max-h-[565px] h-auto" src="/car.jpg" alt="" />
+                            <img className="w-full max-w-[468px] max-h-[565px] h-auto" src={item.postedImg} alt="" />
 
                         </div>
 
@@ -194,18 +160,18 @@ function handleComments(){
                         <div className="w-full max-w-[470px] max-h-[180px] h-auto">
 
                             {/* first section - likes share comments*/}
-                            <section className="flex justify-between w-full max-w-[470px] h-[40px] bg-amber-400">
+                            <section className="flex justify-between w-full max-w-[470px] h-[40px] bg-lime-400">
 
                                 {/* like share and comment */}
                                 <div className="flex items-center w-full max-w-[235px] h-[40px]">
 
                                     {/* like */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2 cursor-pointer" onClick={()=>{setLikes(likes+1)}}>
-                                        <img className="max-w-[24px] h-[24px]" src="/like.png" alt="" />
+                                    <div className="w-full max-w-[40px] h-[40px] p-2 cursor-pointer " onClick={()=>{setLikes(likes+1)}}>
+                                        <img className="hover:bg-red-400 rounded-lg max-w-[24px] h-[24px]" src="/like.png" alt="" />
                                     </div>
 
                                     {/* comment */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2">
+                                    <div className="w-full max-w-[40px] h-[40px] p-2" onClick={()=>setCommentActive(true)}>
                                         <img className="max-w-[24px] h-[24px]" src="/comment.png" alt="" />
                                     </div>
 
@@ -224,29 +190,27 @@ function handleComments(){
 
                             {/* second section - total likes */}
                             <div className="max-w-[470px] w-full h-[18px]">
-                                {likes}
+                                {item.likes}
                             </div>
 
                             {/* third section - caption */}
-                            <div className="max-w-[470px] w-full min-h-[18px] max-h-[54px] h-[auto] mt-2 bg-amber-200">
-                                <span className="flex items-start max-w-[458px] w-full min-h-[18px] max-h-[36px] h-[auto] text-sm"> 
+                            <div className="max-w-[470px] w-full min-h-[18px] max-h-[54px] h-[auto] mt-2 ">
+                                <span className="flex items-start max-w-[458px] w-full min-h-[18px] max-h-[36px] h-[auto] text-sm text-ellipsis overflow-hidden whitespace-nowrap"> 
 
                                 {/* make this to div and style accordingly */}
                                     <span className="flex items-center gap-1">
-                                        <span className="font-semibold"> username </span>
+                                        <span className="font-semibold"> {item.username} </span>
                                         <img className="max-w-[12px] h-[12px]" src="/verified.png" alt="" />
                                     </span>
 
-                                        Eastman kodak started over a century ago and rose to prominence in the mid -20th century 
-                                        with its portable cameras - but digital cameras disrupted its hold on the market 
-                                         
+                                        {item.caption}
                                 </span>
                                 <span>more</span>
                                    
                             </div>
 
                             {/* number of comments  */}
-                            <div className={`max-w-[470px] w-full ${showcomments? "h-auto":"h-[18px]"} `}>
+                            <div className={`max-w-[470px] mt-2 w-full ${showcomments? "h-auto":"h-[18px]"} `}>
                                 <span className="text-sm text-gray-300" onClick={handleComments}>{showcomments? "hide comments":  `Show ${allcomments.length} Comments`}</span>
 
                                 {showcomments && allcomments.map((item,index)=>(
@@ -255,8 +219,8 @@ function handleComments(){
                             </div>
 
                             {/* add a comment */}
-                            <div className="flex items-center max-w-[470px] w-full h-[18px]  mt-2 ">
-                                <textarea className={`text-sm text-gray-300 max-w-[451px] w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
+                            <div className="flex items-center max-w-[470px] w-full h-[18px] mt-3 rounded-2xl">
+                                <textarea className={`text-sm text-gray-300 max-w-[451px] rounded-2xl w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
                                     
                                     <span className="w-full max-w-[13px] h-[13px]">
                                         <img className=" w-full max-w-[13px] h-[13px]" src="/happy.png" alt="" />
@@ -274,6 +238,8 @@ function handleComments(){
 
                 </article>
 
+                ))}
+                
                 <div className="max-w-[470px] h-[17px] mb-5 pb-4 bg-amber-200"><hr /></div>
 
             </div>
