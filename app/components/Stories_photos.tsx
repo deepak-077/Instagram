@@ -1,53 +1,32 @@
 "use client"
-import { useState,useRef } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import posts from './posts';
 import stories from './stories';
-
+import PostCard from './PostCard';
 
 
 
 function Middle(){
-    const [likes,setLikes] = useState(0);
-    const [allcomments,setAllComments]= useState<String[]>([])
-    const [commentActive, setCommentActive] = useState(false);
-    const [showcomments,setShowComments]=useState(false)
-
-    const [currentComment, setCurrentComment] = useState("")
-
-    const scrollRef = useRef<HTMLDivElement | null>(null);
-;
+    const storiesScrollRef = useRef<HTMLDivElement | null>(null);
+    
     const [showLeftArrow,setShowLeftArrow]=useState(false);
 
-function handleScrollRight(){
-    if(scrollRef.current){
-        scrollRef.current.scrollBy({left:300, behavior:"smooth"});
+
+function handleScrollStoriesRight(){
+    if(storiesScrollRef.current){
+        storiesScrollRef.current.scrollBy({left:300, behavior:"smooth"});
         setShowLeftArrow(true);
-
     }
-
 }
 
-function handleScrollLeft(){
-    if(scrollRef.current){
-        scrollRef.current.scrollBy({left:-300,behavior :"smooth"});
+
+function handleScrolStorieslLeft(){
+    if(storiesScrollRef.current){
+        storiesScrollRef.current.scrollBy({left:-300,behavior :"smooth"});
         setShowLeftArrow(false);
     }
 }
 
-function addComment(e){
-    if (!currentComment.trim()){
-        return;
-    }
-    setAllComments(prev=>[...prev, currentComment]);
-    setCurrentComment("");
-    setCommentActive(false);
-
-    console.log(allcomments);
-
-}
-function handleComments(){
-    setShowComments(prev=>!prev)
-}
 
     return(
         <>
@@ -58,7 +37,7 @@ function handleComments(){
 
                 {/* left Arrow */}
                 {showLeftArrow && (
-                    <button className='absolute left-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollLeft}>
+                    <button className='absolute left-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrolStorieslLeft}>
                         <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
                         
                                 <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/left.png" alt="" />
@@ -69,8 +48,8 @@ function handleComments(){
                 )}
 
                 {/* stories */}
-            <div ref={scrollRef}
-            className="flex items-center overflow-x-auto scroll-smooth flex-nowrap max-w-[630px] w-full h-[124px] py-2 px-[9px] bg-black gap-3">
+            <div ref={storiesScrollRef}
+            className="flex items-center overflow-x-auto scroll-smooth flex-nowrap max-w-[630px] w-full h-[124px] py-2 px-[9px] bg-black gap-3 no-scrollbar">
                     
                 {stories.map((item,index)=>(
                 <li key={index} className="flex items-center shrink-0 justify-center w-full max-w-[90px] h-[108px]">
@@ -90,7 +69,7 @@ function handleComments(){
             </div>
 
              {/* Right Arrow */}
-                <button className='absolute right-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollRight}>
+                <button className='absolute right-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollStoriesRight}>
                     <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
                         <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/right.png" alt="" />
                     </div>        
@@ -103,140 +82,12 @@ function handleComments(){
                 
 
             
-            {/* username & photos  - divided into 3 segments*/}  
-            <div className=" flex justify-center items-center max-w-[630px] w-full bg-black text-white ">
+            {/* username & photos - divided into 3 segments */}  
+            <div className=" flex flex-col justify-center items-center max-w-[630px] w-full bg-black text-white ">
 
                 {/* outer container */}
                 {posts.map((item,index)=>(
-                    <article className="w-full max-w-[470px] min-h-[660px] max-h-[830px] h-auto ">
-
-                    <div className="w-full max-w-[470px] min-h-[660px] max-h-[810px] h-auto mb-5 pb-4 ">
-
-                        {/* first container - username and other info */}
-                        <div className="flex max-w-[470px] h-[44px] pb-3 pl-1 bg-black">
-                            {/* inner container */}
-                            <div className="flex items-center justify-between w-full max-w-[466px] h-[32px] gap-2">
-
-                                {/* dp image */}
-                                <div className="flex items-center max-w-[41px] h-[41px]">
-                                    <img className="max-w-[32px] h-[32px] rounded-full" src={item.dp} alt="" />
-                                </div>
-
-                                    {/* name and time of upload */}
-                                    <div className="flex w-full max-w-[390px] h-[18px] gap-5">
-                                        <div className="flex items-center max-w-[60px] h-[18px] gap-1" >
-                                            <span className=" text-sm">{item.username}</span>
-                                            {/* verified tag */}
-                                            <span className=" flex justify-center items-center max-w-[12px] h-[12px]">
-                                                <img className=" max-w-[12px] h-[12px]" src="/verified.png" alt="" />
-                                            </span>
-
-
-                                        </div>
-
-                                        <div className=" w-full max-w-[47px] h-[18px] flex items-center gap-1.5">
-                                        <span className="max-w-[7px] h-[18px] text-sm">.</span>
-                                        <time className="h-[17px] text-sm max-w-[19px]  "> {item.time} </time>
-
-                                        </div>
-                                    </div>
-
-                                    {/* three dots option */}
-                                    <div>
-                                        <span className="text-sm">...</span>
-                                    </div>
-
-                            </div>
-
-                        </div>
-
-                        {/*second container - image */}
-                        <div className="w-full max-w-[468px] border-gray-600 ">
-                            <img className="w-full max-w-[468px] max-h-[565px] h-auto" src={item.postedImg} alt="" />
-
-                        </div>
-
-                        {/* third container - likes and comments */}
-                        <div className="w-full max-w-[470px] max-h-[180px] h-auto">
-
-                            {/* first section - likes share comments*/}
-                            <section className="flex justify-between w-full max-w-[470px] h-[40px] bg-lime-400">
-
-                                {/* like share and comment */}
-                                <div className="flex items-center w-full max-w-[235px] h-[40px]">
-
-                                    {/* like */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2 cursor-pointer " onClick={()=>{setLikes(likes+1)}}>
-                                        <img className="hover:bg-red-400 rounded-lg max-w-[24px] h-[24px]" src="/like.png" alt="" />
-                                    </div>
-
-                                    {/* comment */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2" onClick={()=>setCommentActive(true)}>
-                                        <img className="max-w-[24px] h-[24px]" src="/comment.png" alt="" />
-                                    </div>
-
-                                    {/* share */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2">
-                                        <img className="max-w-[24px] h-[24px]" src="/send.png" alt="" />
-                                    </div>
-
-                                </div>
-
-                                <div className="flex items-center">
-                                    <img className="max-w-[24px] h-[24px]" src="/bookmark.png" alt="" />
-                                </div>
-
-                            </section>
-
-                            {/* second section - total likes */}
-                            <div className="max-w-[470px] w-full h-[18px]">
-                                {item.likes}
-                            </div>
-
-                            {/* third section - caption */}
-                            <div className="max-w-[470px] w-full min-h-[18px] max-h-[54px] h-[auto] mt-2 ">
-                                <span className="flex items-start max-w-[458px] w-full min-h-[18px] max-h-[36px] h-[auto] text-sm text-ellipsis overflow-hidden whitespace-nowrap"> 
-
-                                {/* make this to div and style accordingly */}
-                                    <span className="flex items-center gap-1">
-                                        <span className="font-semibold"> {item.username} </span>
-                                        <img className="max-w-[12px] h-[12px]" src="/verified.png" alt="" />
-                                    </span>
-
-                                        {item.caption}
-                                </span>
-                                <span>more</span>
-                                   
-                            </div>
-
-                            {/* number of comments  */}
-                            <div className={`max-w-[470px] mt-2 w-full ${showcomments? "h-auto":"h-[18px]"} `}>
-                                <span className="text-sm text-gray-300" onClick={handleComments}>{showcomments? "hide comments":  `Show ${allcomments.length} Comments`}</span>
-
-                                {showcomments && allcomments.map((item,index)=>(
-                                    <div className='h-[18px]'>{item}</div>
-                                ))}
-                            </div>
-
-                            {/* add a comment */}
-                            <div className="flex items-center max-w-[470px] w-full h-[18px] mt-3 rounded-2xl">
-                                <textarea className={`text-sm text-gray-300 max-w-[451px] rounded-2xl w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
-                                    
-                                    <span className="w-full max-w-[13px] h-[13px]">
-                                        <img className=" w-full max-w-[13px] h-[13px]" src="/happy.png" alt="" />
-                                    </span>
-
-                                    {/* add comment icon - visible when we type comnt */}
-
-                                    <span className={`${commentActive?"flex bg-amber-400":"hidden"} cursor-pointer w-full max-w-[13px] h-[13px]`} onClick={addComment}>
-                                        <img className=" w-full max-w-[13px] h-[13px]" src="/send.png" alt="" />
-                                    </span>
-                                    
-                            </div>
-                        </div>
-                    </div>
-
-                </article>
+                    <PostCard key={item.id || index} item={item} />
 
                 ))}
                 
