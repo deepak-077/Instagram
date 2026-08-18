@@ -145,10 +145,19 @@ function handleCaption(){
                             {item.postedImg.length > 1 && (
         <div className="absolute left-1/2 bottom-2 flex justify-center items-center gap-1.5 mt-2">
           {item.postedImg.map((dot: any, idx: number) => (
-            <span key={idx} className={`h-1.5 rounded-full transition-all duration-200 ${
+            <span key={idx} className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                 currentImg === idx ? "w-3 bg-red-500" : "w-2 bg-gray-600"
               }` }
-             />
+             onClick={()=>{
+                setCurrentImg(idx)
+                if(postScrollRef.current){
+                    const width= postScrollRef.current.offsetWidth;
+                    postScrollRef.current.scrollTo({
+                        left:idx*width, // pixels to reach the image
+                        behavior:"smooth",
+                    });
+                }
+             }}/>
           ))}
         </div>
       )}
