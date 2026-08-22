@@ -13,7 +13,7 @@ const posts = [
         username:"leomessi",
         time:"2d",
         dp:"/messi.jpg",
-        postedImg:[ "/messi_2006.jpg", "/messi_2026.jpg" ],
+        postedImg:[ "/messi_2006.jpg", "/messi_2026.jpg", "messi_3.jpg" ],
         likes:"707",
         comments:[],
         caption:"Eastman kodak started over a century ago and rose to prominence in the mid-20th century with its portable cameras - but digital cameras disrupted its hold on the market"

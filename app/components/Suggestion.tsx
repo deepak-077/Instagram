@@ -14,7 +14,7 @@ const people =[
 },
 {
         img:"three.jpg",
-        username:"use_3",
+        username:"user_3",
         reason:"suggested for you"
 
 },

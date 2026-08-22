@@ -17,11 +17,11 @@ const stories=[
 },
 {
     img:"me.jpg",
-    username:"iamdepak"
+    username:"ironman"
 },
 {
     img:"aniket.jpg",
-    username:"aniketxanand"
+    username:"thor"
 },
 {
     img:"mkbhd.jpg",

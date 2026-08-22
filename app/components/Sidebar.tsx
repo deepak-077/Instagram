@@ -42,8 +42,10 @@ const menu=[
 ]
 
 function Sidebar(){
-    const [isSmall,setIsSmall] =useState(false);
-    const [expanded, setIsExpanded] =useState<string | null> (null);
+    const [isSmall,setIsSmall] = useState(false);
+    const [expanded, setIsExpanded] = useState <string | null> (null);
+    const [addPost, setAddPost] = useState(false);
+    const [upload, setUpload] = useState(false);
     
 
     useEffect(()=>{
@@ -56,6 +58,11 @@ function Sidebar(){
         window.addEventListener('resize',screenSize);
         return ()=>window.removeEventListener('resize',screenSize);
     },[])
+
+    function handleAddPost(){
+        console.log("add post")
+    }
+
 
     const visibleMenu=isSmall ? menu.filter(
         (item) =>
@@ -86,8 +93,12 @@ function Sidebar(){
                         <div key={index} 
                         onClick={()=>{
                             if(item.title ==='Search'  || item.title==='Notifications'){
-                                setIsExpanded((prev)=> prev===item.title ? null:item.title
-                            )}
+                                setIsExpanded((prev)=> prev===item.title ? null:item.title) 
+                            }
+
+                            if(item.title==='Create'){
+                                setAddPost(true);
+                            }
                         }}
                         
                         className="flex justify-center md:justify-start w-full max-w-[48px] h-[52px] xl:max-w-[220px] xl:h-[48px] md:my-0.5 p-3 cursor-pointer">
@@ -101,6 +112,38 @@ function Sidebar(){
     
                         </div>
                     ))}
+                    
+                    {/* Add post */}
+                        <div className= "flex justify-center md:justify-start w-full max-w-[48px] h-[52px] xl:max-w-[220px] xl:h-[48px] md:my-0.5 p-3 cursor-pointer" onClick={()=>setUpload((prev)=>!prev)}>
+                            
+                            <div  className={`flex items-center w-full max-w-[62px] h-[24px] text-white`}> 
+                                <span className="pl-4">Post</span>
+                            </div>
+
+                            <img className="w-full max-w-[24px] h-[24px]"  src="" alt="" />
+                            
+                        </div>
+
+                        {/* dialog for file upload */}
+                        <div className={`w-full max-w-[800px] bg-amber-400 ${upload ? "flex":"hidden"}`}>
+                            <div className='w-full max-w-[623px] h-[42px]'>
+                                <div className='w-full max-w-[623px] h-[24px]'>Create New Post</div>
+
+                            </div>
+
+                            <div className='flex flex-col'>
+                                <img className='w-full max-w-[96px] h-[77px]' src="" alt="image and reels icon" />
+                                <h3 className='h-[15px] text-[20px]'>Drag Photos and Video Here</h3>
+
+                                <div className='w-full max-w-[192px] h-[40px] p-1'>
+                                    <button className='w-full max-w-[182px] h-[32px] text-[14px] py-[7px] px-4'>Select From Computer</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
 
                     {/* Expandable panel for Search or Notifications */}
                     

@@ -153,7 +153,7 @@ function handleCaption(){
                 if(postScrollRef.current){
                     const width= postScrollRef.current.offsetWidth;
                     postScrollRef.current.scrollTo({
-                        left:idx*width, // pixels to reach the image
+                        left:idx * width, // pixels to reach the image
                         behavior:"smooth",
                     });
                 }
@@ -220,7 +220,7 @@ function handleCaption(){
                             </div>
 
                             {/* number of comments  */}
-                            <div className={`max-w-[470px] mt-2 w-full ${showcomments? "h-auto":"h-[18px]"} `}>
+                            <div className={`max-w-[470px] mt-2 w-full cursor-pointer ${showcomments? "h-auto":"h-[18px]"} `}>
                                 <span className="text-sm text-gray-300 " onClick={handleComments}>{showcomments? "hide comments":  `Show ${allcomments.length} Comments`}</span>
 
                                 {showcomments && allcomments.map((item,index)=>(
@@ -230,7 +230,7 @@ function handleCaption(){
 
                             {/* add a comment */}
                             <div className="flex items-center max-w-[470px] w-full h-[18px] mt-3 rounded-2xl">
-                                <textarea className={`text-sm text-gray-300 max-w-[451px] rounded-2xl w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
+                                <textarea className={`text-sm pl-2 text-gray-300 max-w-[451px] rounded-2xl w-full ${commentActive?"h-auto  text-red-400" : "h-[18px]" } `} placeholder="Add a comment..." name = "comment" value={currentComment} onFocus={() =>setCommentActive(true)}  onChange={(e) =>setCurrentComment(e.target.value)}></textarea>
                                     
                                     <span className="w-full max-w-[13px] h-[13px]">
                                         <img className=" w-full max-w-[13px] h-[13px]" src="/happy.png" alt="" />
