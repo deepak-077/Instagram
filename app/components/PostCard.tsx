@@ -179,7 +179,7 @@ function handleCaption(){
                                     </div>
 
                                     {/* comment */}
-                                    <div className="w-full max-w-[40px] h-[40px] p-2" onClick={()=>setCommentActive(true)}>
+                                    <div className="w-full max-w-[40px] h-[40px] p-2 cursor-pointer" onClick={()=>setCommentActive(true)}>
                                         <img className="max-w-[24px] h-[24px]" src="/comment.png" alt="" />
                                     </div>
 
