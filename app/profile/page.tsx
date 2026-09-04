@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react"
+
 const profile={
     username:"leomessi",
     followers:"516M",
@@ -25,9 +29,9 @@ const highlights = [
 ]
 
 const sections=[
-    {img :""},
-    {img :""},
-    {img :""},
+    {title:"grid",  img:["grid.png", "grid_filled.png"]},
+    {title:"reels", img:["reels.png","reels_filled.png"]},
+    {title:"tags", img:["contacts.png","contacts_filled.png"]},
 ]
 
 
@@ -62,6 +66,8 @@ const suggested=[
 
 
 export default function Profile(){
+
+    const [selectedSection, setSelectedSection]=useState("grid")
     
     
     return(
@@ -203,8 +209,8 @@ export default function Profile(){
                 <div className="flex justify-center items-center w-full h-11">
                     {sections.map((category,idx)=>(
                         <div className="flex justify-center w-[193px] h-[44px]">
-                            <div className="w-16 h-11">
-                                <img src={category.img} alt="" />
+                            <div className="flex items-center w-16 h-11 px-4">
+                                <img className="size-8" src={selectedSection==category.title? category.img[1]:category.img[0]} alt="" onClick={()=>setSelectedSection(category.title)}/>
                             </div>
                         </div>
                     ))}
@@ -222,7 +228,7 @@ export default function Profile(){
 
                     ))}
 
-                    <div className="absolute bottom-3 flex items-center w-[264px] h-[51px] px-4 py-3 bg-[#212328] rounded-4xl">
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-3 flex items-center w-[264px] h-[51px] px-4 py-3 bg-[#212328] rounded-4xl">
                         <div className="flex items-center p-2 h-[27px]">
                             <span className="flex items-center text-[#F5F5F5] font-semibold h-[11px] text-sm">Show more posts from {profile.username}</span>
 
@@ -257,10 +263,12 @@ export default function Profile(){
                                         <div className="size-[92px] mt-3 mb-1">
                                             <img className="size-[92px] rounded-full" src={item.img} alt="" />
                                         </div>
-                                        <div className="flex justify-center  w-[127px] h-4 mt-1 mb-2">
+
+                                        {/* fix the text ellipses effect */}
+                                        <div className="flex justify-center  max-w-[127px] h-4 mt-1 mb-2">
                                             <div className="flex justify-center items-center gap-1 w-full h-3">
-                                                <span className="flex justify-center w-auto max-w-[111px] h-[18px] line-clamp-1 text-white text-sm font-semibold">{item.username}</span>
-                                                <img className="size-3" src="verified.png" alt="" />
+                                                <span className="flex justify-center w-auto max-w-[111px] h-[18px] truncate text-white text-sm font-semibold">{item.username}</span>
+                                                <img className="size-3 shrink-0" src="verified.png" alt="" />
 
                                             </div>
 
@@ -275,7 +283,6 @@ export default function Profile(){
                             </li>
                            
                         ))}
-
 
                     </div>
 
