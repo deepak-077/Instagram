@@ -1,18 +1,3 @@
-const highlights = [
-    {
-        img:["img1","img2","img3"],
-        caption:"Seleccion"
-    },
-    {
-        img:["img1","img2","img3"],
-        caption:"FCB"
-    },
-    {
-        img:["img1","img2","img3"],
-        caption:"Familia"
-    },
-]
-
 const profile={
     username:"leomessi",
     followers:"516M",
@@ -24,6 +9,56 @@ const profile={
 
 }
 
+const highlights = [
+    {
+        img:["highlight1.jpg","img2","img3"],
+        caption:"Seleccion"
+    },
+    {
+        img:["highlight2.jpg","img2","img3"],
+        caption:"FCB"
+    },
+    {
+        img:["highlight3.jpg","img2","img3"],
+        caption:"Familia"
+    },
+]
+
+const sections=[
+    {img :""},
+    {img :""},
+    {img :""},
+]
+
+
+const posts = [ "post1.jpg", "post2.jpg", "post3.jpg", "post4.jpg", "post5.jpg", "post6.jpg", "post7.jpg", "post8.jpg", "post9.jpg", "post10.jpg", "post11.jpg", "post12.jpg"]
+
+const suggested=[
+    {img:"suggestion1.jpg",
+     username:"Erling Braut Haaland",
+     name:"Erling Braut Haaland"   
+    },
+    {img:"suggestion2.jpg",
+     username:"eFootball",
+     name:"eFootball"   
+    },
+    {img:"suggestion3.jpg",
+     username:"Giuliano Simeone",
+     name:"Giuliano Simeone"   
+    },
+    {img:"suggestion4.jpg",
+     username:"CHINA SANJUAN",
+     name:"CHINA SANJUAN"   
+    },
+    {img:"suggestion5.jpg",
+     username:"OroMessi",
+     name:"OroMessi"   
+    },
+    {img:"suggestion6.jpg",
+     username:"Andres Iniesta",
+     name:"Andres Iniesta"   
+    },
+]
 
 
 export default function Profile(){
@@ -126,14 +161,6 @@ export default function Profile(){
                    
 
                     
-                    
-
-
-                    
-
-
-
-
                     {/* Highlights */}
                     <section className="w-full h-[174px]">
                          <div className="flex w-full h-[130px]">
@@ -144,7 +171,7 @@ export default function Profile(){
                                     
                                     {/* {item.img.map((pics,idx)=>( */}
                                         <div className="flex items-center justify-center size-23">
-                                            <img className="border-2 rounded-full size-[77px]" src="" alt="" />
+                                            <img className="border-2 rounded-full size-[77px]" src={item.img[0]} alt="" />
                                         </div>
                                     {/* ))} */}
                                     
@@ -171,6 +198,88 @@ export default function Profile(){
 
                 </header>
 
+
+                {/* sections - reels, photos etc */}
+                <div className="flex justify-center items-center w-full h-11">
+                    {sections.map((category,idx)=>(
+                        <div className="flex justify-center w-[193px] h-[44px]">
+                            <div className="w-16 h-11">
+                                <img src={category.img} alt="" />
+                            </div>
+                        </div>
+                    ))}
+                
+                </div>
+
+
+                {/* posts */}
+                <div className="relative grid grid-cols-3 mb-2">
+                    {posts.map((uploads,index)=>(
+                        <div className="flex justify-center items-center w-[310px] h-[414px]">
+                        <img className="w-[310px] h-[414px]" src={uploads} alt="" />
+
+                    </div>
+
+                    ))}
+
+                    <div className="absolute bottom-3 flex items-center w-[264px] h-[51px] px-4 py-3 bg-[#212328] rounded-4xl">
+                        <div className="flex items-center p-2 h-[27px]">
+                            <span className="flex items-center text-[#F5F5F5] font-semibold h-[11px] text-sm">Show more posts from {profile.username}</span>
+
+
+                        </div>
+
+
+                    </div>
+                    
+                </div>
+
+                {/* Accounts you might like */}
+                <div className="flex flex-col gap-3 w-[935px] h-[260px]">
+
+                    <div className="flex items-center">
+                        <div className="w-[890px] h-[18px] text-[#F5F5F5]">
+                            <div className="w-[890px] h-[13px] font-semibold">Accounts you might like</div>
+                        </div>
+
+                        <span className="text-sm text-[#708DFF] font-medium">See all</span>
+                    </div>
+
+
+                    {/* profiles */}
+                    <div className="flex gap-3 w-[935px] h-[230px]">
+                        {suggested.map((item,index)=>(
+                            <li className="w-[153px] h-[230px]">
+                                <div className="flex flex-col justify-center items-center rounded-2xl gap-2 w-[153px] h-[210px] bg-[#212328]">
+                                    <div className="flex flex-col items-center justify-center w-[151px] h-[164px] p-3 pb-2">
+                                        
+                                        {/* dp */}
+                                        <div className="size-[92px] mt-3 mb-1">
+                                            <img className="size-[92px] rounded-full" src={item.img} alt="" />
+                                        </div>
+                                        <div className="flex justify-center  w-[127px] h-4 mt-1 mb-2">
+                                            <div className="flex justify-center items-center gap-1 w-full h-3">
+                                                <span className="flex justify-center w-auto max-w-[111px] h-[18px] line-clamp-1 text-white text-sm font-semibold">{item.username}</span>
+                                                <img className="size-3" src="verified.png" alt="" />
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div className="flex items-center justify-center w-[87px] h-[32px] px-4 bg-[#25292E] font-semibold text-sm text-white rounded-lg border">Follow</div>
+
+                                </div>
+
+                            </li>
+                           
+                        ))}
+
+
+                    </div>
+
+                </div>
 
             </div>
 
