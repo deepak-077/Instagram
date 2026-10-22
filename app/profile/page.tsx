@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Footer from "../components/Footer"
 
 const profile={
     username:"leomessi",
@@ -73,7 +74,7 @@ export default function Profile(){
     return(
         <div className="bg-black flex flex-col items-center">
 
-            {/* login and signup button */}
+            {/* navbar with - login and signup button */}
             <div className="flex items-center justify-between w-full max-w-[975px] h-[60px] px-5">
                 
                 {/* logo */}
@@ -110,12 +111,12 @@ export default function Profile(){
             <div className="w-full max-w-[975px] mx-[248px] pt-[30px] px-5">
 
                 {/* profile */}
-                <header className="flex flex-col w-full h-[395px]">
+                <header className="flex flex-col w-full h-[420px] justify-between">
 
                     <div className="flex">
 
                         {/* profile pic */}
-                    <section className="flex items-center justify-center w-[284px] h-[177px] mr-7">
+                    <section className="flex items-center justify-center w-[284px] h-[201px] mr-7">
                         <div className="flex items-center justify-center w-[284px] h-[150px]">
                             <div className="flex items-center justify-center w-[165px] h-[165px]">
                                 <img className="size-[150px] rounded-full" src="messi.jpg" alt="" />
@@ -182,7 +183,7 @@ export default function Profile(){
                                     {/* ))} */}
                                     
 
-                                    <div className=" w-[85px] h-[31px] pt-[15px] text-white text-xs font-semibold">
+                                    <div className="w-[85px] h-[31px] pt-[15px] text-white text-xs font-semibold">
                                         <span className="flex justify-center w-[85px] h-[16px]">
                                             {item.caption}
 
@@ -289,6 +290,8 @@ export default function Profile(){
                 </div>
 
             </div>
+
+            <Footer/>
 
         </div>
     )

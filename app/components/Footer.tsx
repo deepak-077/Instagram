@@ -1,8 +1,8 @@
 function Footer(){
     return(
         <footer className=' px-[16px] w-full min-w-[250px]'>
-        <div className=' mb-[52px] h-[83px]'>
-          <div className='flex flex-wrap justify-center w-full max-w-[1273px]  text-[#a8a8a8] text-[12px] gap-2 sm:gap-4 mx-auto pb-1'>
+        <div className=' flex flex-col justify-between mb-[52px] h-[83px]'>
+          <div className='flex flex-wrap justify-center w-full max-w-[1273px] h-[23px]  text-[#a8a8a8] text-[12px] gap-2 sm:gap-4 mx-auto pb-1 pt-4'>
 
           <span className="whitespace-nowrap">Meta</span> 
           <span className="whitespace-nowrap">About</span> 
@@ -15,7 +15,7 @@ function Footer(){
 
         <div className='flex flex-wrap justify-center w-screen  text-[#a8a8a8] text-[12px] my-[12px]'>
           <span className="whitespace-nowrap"> English (UK)</span>
-          <span className="whitespace-nowrap"> 2025 Instagram from Meta</span>
+          <span className="whitespace-nowrap"> 2026 Instagram from Meta</span>
         </div>
 
 
