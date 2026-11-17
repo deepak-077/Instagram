@@ -1,23 +1,35 @@
+import Middle from "../components/Stories_photos"
+
 const comments = [
-    {username:"user1",
-     dp:"img1",
-     comment:"lorem10"
+    {
+        dp:"img1",
+        username:"user1",
+        time:"1D",
+        comment:"lorem10"
     },
-    {username:"user2",
-     dp:"img1",
-     comment:"lorem10"
+    {
+        dp:"img1",
+        username:"user2",
+        time:"1D",
+        comment:"lorem10"
     },
-    {username:"user3",
-     dp:"img1",
-     comment:"lorem10"
+    {
+        dp:"img1",
+        username:"user3",
+        time:"2D",
+        comment:"lorem10"
     },
-    {username:"user4",
-     dp:"img1",
-     comment:"lorem10"
+    {
+        dp:"img1",
+        username:"user4",
+        time:"2D",
+        comment:"lorem10"
     },
-    {username:"user5",
-     dp:"img1",
-     comment:"lorem10"
+    {
+        dp:"img1",
+        username:"user5",
+        time:"1d",
+        comment:"lorem10"
     }
 ]
 
@@ -100,7 +112,7 @@ export default function MorePost(){
 
 
                     {/* comments */}
-                    <div className="w-[335px] h-[425px] px-4 pb-4 ">
+                    <div className="w-[335px] h-[425px] overflow-y-auto px-4 pb-4 ">
                         {/* user info and Caption */}
                         <div className="w-[303px] h-[78px] py-3 border border-amber-300">
 
@@ -140,22 +152,23 @@ export default function MorePost(){
 
 
                         {/* individual comments */}
-                        <div className="flex w-[303px] h-auto  py-3">
+                        {comments.map((item,index)=>(
+                            <div className="flex w-[303px] h-auto  py-3">
                             
                             <div className="w-8 h-auto mr-3">
-                                <img className="rounded-full size-8" src="" alt="" />
+                                <img className="rounded-full size-8" src={item.dp} alt="" />
 
                             </div>
                             <div className="w-[259px] h-auto text-white text-sm">
                                 {/* username and time */}
                                 <div className="flex gap-1 font-semibold w-full h-[18px]">
-                                    <span>username</span>
-                                    <span className="text-[#A8A8A8]">1d</span>
+                                    <span>{item.username}</span>
+                                    <span className="text-[#A8A8A8]">{item.time}</span>
                                 </div>
 
                                 {/* comment */}
                                 <div className="w-full h-auto">
-                                    <span className="h-auto text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic provident distinctio repudiandae, quia recusandae illo culpa, ipsum, similique eaque esse fuga praesentium nobis temporibus reiciendis velit dignissimos? Voluptatibus, quae eius! </span>
+                                    <span className="h-auto text-sm">{item.comment}</span>
                                 </div>
 
                                 {/* like and reply */}
@@ -168,33 +181,59 @@ export default function MorePost(){
 
                         </div>
 
+                        ))}
+                        
                     </div>
 
                     <div className="w-full h-[80px] py-1.5 px-4">
-                        <section className="w-[303px] h-[40px]">
+                        <section className="flex justify-between items-center w-[303px] h-[40px] bg-yellow-300">
                             
                             {/* like comment and share */}
-                            <div className="w-[202px] h-[40px]">
+                            <div className="flex items-center w-[202px] h-[40px]">
+                                {/* likes */}
                                 <div className="size-10 p-2">
-                                    <img src="" alt="" />
-
+                                    <img className="size-6" src="like.png" alt="" />
                                 </div>
+                                <span className="mr-1 -ml-0.5 font-semibold text-[14px]">11.7M</span>
 
+                                {/* comments */}
+                                <div className="size-10 p-2">
+                                    <img className="size-6" src="comment.png" alt="" />
+                                </div>
+                                <span className="mr-1 -ml-0.5 font-semibold text-[14px]">208.7K</span>
 
+                                {/* share */}
+                                <div className="size-10 p-2">
+                                    <img className="size-6" src="send.png" alt="" />
+                                </div>
+                                
                             </div>
 
                             {/* save icon */}
                             <div>
+                                <img className="size-6" src="bookmark.png" alt="" />
 
                             </div>
                         </section>
 
+                        <div className="w-[303px] h-[11px] mb-4">
+                            <span className="text-[#a8a8a8] text-xs"> October 6 </span>
+
+                        </div>
+
                     </div>
 
-
-
-
+                    {/* log in to like or comment */}
+                    <div className="w-[303px] h-[34px] mx-4">
+                        <div className="flex items-center w-full h-[34px] py-2" >
+                            <span className="h-[18px] text-sm text-[#A8A8A8]">
+                                <span className="text-[#708dff] font-semibold">Log in</span> to like or comment.
+                            </span>
+                        </div>
+                    </div>
+                
                 </div>
+
 
                 </div>
 
