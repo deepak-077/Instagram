@@ -246,6 +246,6 @@ function handleCaption(){
                         </div>
                     </div>
 
-                    </article>
+        </article>
     )
 }

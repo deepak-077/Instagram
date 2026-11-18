@@ -1,4 +1,8 @@
-import Middle from "../components/Stories_photos"
+"use client"
+
+import PostCard2 from "../components/PostCard2"
+
+const postedImg=["more1.jpg","more2.jpg","more3.jpg"]
 
 const comments = [
     {
@@ -74,7 +78,11 @@ export default function MorePost(){
                 <div className="w-full max-w-[818px] flex">
                     {/* image or video */}
                     <div className="w-[480px] h-[600px]">
-                        <img className="w-[480px] h-[600px] " src="" alt="" />
+                        {/* <img className="w-[480px] h-[600px]" src="more1.jpg" alt="" /> */}
+                        
+                        <PostCard2 postedImg={postedImg}/>
+
+                        
                     </div>
 
 
