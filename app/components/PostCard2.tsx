@@ -55,36 +55,35 @@ export default function PostCard2({postedImg}){
     return(
             <div className='relative w-full max-w-[480px] overflow-hidden '>
 
-                            <div ref={postScrollRef} onScroll={handleScroll} className="flex overflow-x-auto snap-x snap-mandatory w-full max-w-[480px]  border-gray-600 no-scrollbar ">
+                <div ref={postScrollRef} onScroll={handleScroll} className="flex overflow-x-auto snap-x snap-mandatory w-full max-w-[480px]  border-gray-600 no-scrollbar ">
                                 
-                                {postedImg.map((pics,index)=> (
-                                    <img key={index} className=" w-full max-w-[480px] max-h-[600px] h-auto shrink-0" src={pics} alt="" />
-                                ))}
+                    {postedImg.map((pics,index)=> (
+                    <img key={index} className=" w-full max-w-[480px] max-h-[600px] h-auto shrink-0" src={pics} alt="" />
+                    ))}
                                 
-                            </div>
+                </div>
 
-                            {/* buttons for multiple images */}
-                            {postedImg.length>1 && (
+                    {/* buttons for multiple images */}
+                    {postedImg.length>1 && (
                                 
-                                <div className='flex justify-between items-center w-full'>
-                                    {currentImg>0 && (
-                                        <button className={` ${showLeftArrow_Post? "flex" : "hidden"} absolute left-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10`} onClick={handleScrollPostLeft}  >
-                                            <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
-                                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/left.png" alt="" />
-                                            </div>
+                    <div className='flex justify-between items-center w-full'>
+                    {currentImg>0 && (
+                        <button className={` ${showLeftArrow_Post? "flex" : "hidden"} absolute left-0 top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10`} onClick={handleScrollPostLeft}  >
+                            <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
+                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/left.png" alt="" />
+                            </div>
                         
-                                        </button>    
-                                    )}
+                        </button>    
+                    )}
 
-                                    
-                                    {currentImg<postedImg.length-1 && (
-                                        <button className='right-0 absolute top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollPostRight}>
-                                            <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
-                                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/right.png" alt="" />
-                                            </div>        
-                                        </button>
-                                    )}
-                            </div>
+                    {currentImg<postedImg.length-1 && (
+                        <button className='right-0 absolute top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollPostRight}>
+                            <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
+                                <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/right.png" alt="" />
+                            </div>        
+                        </button>
+                    )}
+                    </div>
 
                             )}
 

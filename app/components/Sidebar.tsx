@@ -46,6 +46,14 @@ function Sidebar(){
     const [expanded, setIsExpanded] = useState <string | null> (null);
     const [addPost, setAddPost] = useState(false);
     const [upload, setUpload] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [caption, setCaption] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
     
 
     useEffect(()=>{
@@ -59,9 +67,83 @@ function Sidebar(){
         return ()=>window.removeEventListener('resize',screenSize);
     },[])
 
+    useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+    }, [previewUrl]);
+
     function handleAddPost(){
-        console.log("add post")
+        console.log("add post",addPost)
     }
+
+    function handleFileUpload() {
+    setError(null);
+    fileInputRef.current?.click();
+  }
+
+  // 2. Runs when the user picks a file
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const maxSizeBytes = 10 * 1024 * 1024; // 10 MB
+    if (!file.type.startsWith("image/")) {
+      setError("Please select a valid image file.");
+      return;
+    }
+    if (file.size > maxSizeBytes) {
+      setError("Image must be 10 MB or smaller.");
+      return;
+    }
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setError(null);
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  }
+
+  // 3. Sends the file to your upload/post endpoint
+  async function handlePublishPost() {
+    if (!selectedFile) return;
+
+    setIsUploading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      formData.append("caption", caption);
+
+      // Replace with your API route or cloud upload call
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to upload image.");
+      }
+
+      // Reset modal state on success
+      setSelectedFile(null);
+      setPreviewUrl(null);
+      setCaption("");
+      setUpload(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setIsUploading(false);
+    }
+  }
+    
+
+    
 
 
     const visibleMenu=isSmall ? menu.filter(
@@ -97,7 +179,7 @@ function Sidebar(){
                             }
 
                             if(item.title==='Create'){
-                                setAddPost(true);
+                                setAddPost(prev=>!prev);
                             }
                         }}
                         
@@ -105,7 +187,7 @@ function Sidebar(){
 
                             <img className="w-full max-w-[24px] h-[24px]"  src={`/${item.img}`} alt="" />
                             <div  className={`flex items-center w-full max-w-[62px] h-[24px] text-white 
-                                ${expanded ==='Search' || expanded ==='Notifications'?'hidden xl:hidden' :'hidden xl:flex'}`}> 
+                                ${expanded ==='Search' || expanded ==='Notifications' ? 'hidden xl:hidden' :'hidden xl:flex'}`}> 
 
                                 <span className="pl-4">{item.title}</span>
                             </div>
@@ -127,18 +209,17 @@ function Sidebar(){
                         {/* dialog for file upload */}
                         <div className={`w-full max-w-[800px] bg-amber-400 ${upload ? "flex":"hidden"}`}>
                             <div className='w-full max-w-[623px] h-[42px]'>
-                                <div className='w-full max-w-[623px] h-[24px]'>Create New Post</div>
+                                <div className='w-full max-w-[623px] h-[24px] cursor-pointer'>Create New Post</div>
 
                             </div>
 
-                            <div className='flex flex-col'>
+                            <div className='flex flex-col h-auto text-sm'>
                                 <img className='w-full max-w-[96px] h-[77px]' src="" alt="image and reels icon" />
-                                <h3 className='h-[15px] text-[20px]'>Drag Photos and Video Here</h3>
+                                <h3 className='h-[15px] text-sm font-semibold'>Drag Photos and Video Here</h3>
 
                                 <div className='w-full max-w-[192px] h-[40px] p-1'>
-                                    <button className='w-full max-w-[182px] h-[32px] text-[14px] py-[7px] px-4'>Select From Computer</button>
+                                    <button className='w-full max-w-[182px] h-[32px] py-[7px] px-4 text-sm rounded-full bg-lime-300' onClick={handleFileUpload}>Select From Computer</button>
                                 </div>
-
 
                             </div>
 
