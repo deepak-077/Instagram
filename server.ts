@@ -78,6 +78,17 @@ app.post('/signup', async (req,res)=>{
     }
 })
 
+app.post("/upload",async(req,res)=>(
+  try{
+    const fileUpload=await
+
+  }
+  catch(error){
+    console.log("failed to upload file");
+  }
+
+))
+
 app.listen(3001,()=>{
     console.log("server running")
 })

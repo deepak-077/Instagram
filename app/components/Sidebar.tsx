@@ -1,6 +1,6 @@
 "use client"
-import { string } from 'zod';
-import { useEffect,useState } from 'react';
+
+import { useEffect,useState, ChangeEvent, useRef } from 'react';
 
 const menu=[
     {
@@ -44,7 +44,7 @@ const menu=[
 function Sidebar(){
     const [isSmall,setIsSmall] = useState(false);
     const [expanded, setIsExpanded] = useState <string | null> (null);
-    const [addPost, setAddPost] = useState(false);
+    
     const [upload, setUpload] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -75,16 +75,14 @@ function Sidebar(){
     };
     }, [previewUrl]);
 
-    function handleAddPost(){
-        console.log("add post",addPost)
-    }
 
     function handleFileUpload() {
     setError(null);
     fileInputRef.current?.click();
   }
 
-  // 2. Runs when the user picks a file
+  
+  // Runs when the user picks a file
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -106,9 +104,13 @@ function Sidebar(){
     setError(null);
     setSelectedFile(file);
     setPreviewUrl(URL.createObjectURL(file));
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }
 
-  // 3. Sends the file to your upload/post endpoint
+  
   async function handlePublishPost() {
     if (!selectedFile) return;
 
@@ -120,7 +122,7 @@ function Sidebar(){
       formData.append("image", selectedFile);
       formData.append("caption", caption);
 
-      // Replace with your API route or cloud upload call
+      // API route 
       const res = await fetch("/api/posts", {
         method: "POST",
         body: formData,
@@ -130,7 +132,7 @@ function Sidebar(){
         throw new Error("Failed to upload image.");
       }
 
-      // Reset modal state on success
+      // Resetting modal state 
       setSelectedFile(null);
       setPreviewUrl(null);
       setCaption("");
@@ -142,9 +144,6 @@ function Sidebar(){
     }
   }
     
-
-    
-
 
     const visibleMenu=isSmall ? menu.filter(
         (item) =>
@@ -179,7 +178,7 @@ function Sidebar(){
                             }
 
                             if(item.title==='Create'){
-                                setAddPost(prev=>!prev);
+                                setUpload(prev=>!prev);
                             }
                         }}
                         
@@ -245,6 +244,76 @@ function Sidebar(){
                 </div>
                 
             </div>
+
+            <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
+      {/* Centered upload modal */}
+      {upload && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 text-white">
+          <div className="w-full max-w-lg rounded-xl border border-[#262626] bg-[#121212] p-4">
+            <div className="flex items-center justify-between border-b border-[#262626] pb-3">
+              <h2 className="text-base font-semibold">Create New Post</h2>
+              <button
+                type="button"
+                onClick={() => setUpload(false)}
+                className="text-sm text-neutral-400 hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="mt-4 flex flex-col items-center gap-4">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Selected preview"
+                  className="max-h-80 w-full rounded-lg object-contain"
+                />
+              ) : (
+                <p className="text-sm text-neutral-400">
+                  Choose a photo from your device to preview it.
+                </p>
+              )}
+
+              {error && <p className="text-sm text-red-400">{error}</p>}
+
+              <button
+                type="button"
+                onClick={handleFileUpload}
+                className="rounded-full bg-lime-300 px-4 py-2 text-sm font-medium text-black"
+              >
+                Select From Computer
+              </button>
+
+              {selectedFile && (
+                <>
+                  <input
+                    type="text"
+                    value={caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    placeholder="Write a caption..."
+                    className="w-full rounded-lg border border-[#262626] bg-black px-3 py-2 text-sm text-white"
+                  />
+                  <button
+                    type="button"
+                    disabled={isUploading}
+                    onClick={handlePublishPost}
+                    className="w-full rounded-lg bg-blue-500 py-2 text-sm font-semibold disabled:opacity-50"
+                  >
+                    {isUploading ? "Uploading..." : "Share Post"}
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
         </>
     )
 
