@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect,useState, ChangeEvent, useRef } from 'react';
+import axios from 'axios';
 
 const menu=[
     {
@@ -123,13 +124,14 @@ function Sidebar(){
       formData.append("caption", caption);
 
       // API route 
-      const res = await fetch("/api/posts", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await axios.post("http://localhost:3001/upload", formData);
 
-      if (!res.ok) {
+      if (res.status!==(201)) {
         throw new Error("Failed to upload image.");
+      }
+
+      if(res.status===201){
+        console.log("img upload successful");
       }
 
       // Resetting modal state 
@@ -195,7 +197,7 @@ function Sidebar(){
                     ))}
                     
                     {/* Add post */}
-                        <div className= "flex justify-center md:justify-start w-full max-w-[48px] h-[52px] xl:max-w-[220px] xl:h-[48px] md:my-0.5 p-3 cursor-pointer" onClick={()=>setUpload((prev)=>!prev)}>
+                        {/* <div className= "flex justify-center md:justify-start w-full max-w-[48px] h-[52px] xl:max-w-[220px] xl:h-[48px] md:my-0.5 p-3 cursor-pointer" onClick={()=>setUpload((prev)=>!prev)}>
                             
                             <div  className={`flex items-center w-full max-w-[62px] h-[24px] text-white`}> 
                                 <span className="pl-4">Post</span>
@@ -203,10 +205,10 @@ function Sidebar(){
 
                             <img className="w-full max-w-[24px] h-[24px]"  src="" alt="" />
                             
-                        </div>
+                        </div> */}
 
                         {/* dialog for file upload */}
-                        <div className={`w-full max-w-[800px] bg-amber-400 ${upload ? "flex":"hidden"}`}>
+                        {/* <div className={`w-full max-w-[800px] bg-amber-400 ${upload ? "flex":"hidden"}`}>
                             <div className='w-full max-w-[623px] h-[42px]'>
                                 <div className='w-full max-w-[623px] h-[24px] cursor-pointer'>Create New Post</div>
 
@@ -222,7 +224,7 @@ function Sidebar(){
 
                             </div>
 
-                        </div>
+                        </div> */}
 
 
                     {/* Expandable panel for Search or Notifications */}
