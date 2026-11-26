@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Searchbar from "../components/Searchbar";
 import Sidebar from "../components/Sidebar";
-import Middle from "../components/Stories_photos";
+import Middle from "../components/Middle";
 import Suggestion from "../components/Suggestion";
 
 

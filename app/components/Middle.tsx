@@ -1,16 +1,53 @@
 "use client"
 import { useState,useRef, useEffect } from 'react';
-import posts from './posts';
+import staticPosts from './posts';
 import stories from './stories';
 import PostCard from './PostCard';
+
+
+interface UploadedPost {
+  id: string;
+  username?: string;
+  dp?: string;
+  time?: string;
+  postedImg?: string[];
+  imageUrl?: string;
+  likes?: number;
+  caption?: string;
+  createdAt: string;
+}
 
 
 
 function Middle(){
     const storiesScrollRef = useRef<HTMLDivElement | null>(null);
-    
     const [showLeftArrow,setShowLeftArrow]=useState(false);
+    const [uploadedPosts, setUploadedPosts] = useState<UploadedPost[]>([]);
 
+
+    useEffect(() => {
+    async function loadPosts() {
+      try {
+        const res = await fetch("http://localhost:3001/posts");
+        if (!res.ok) return;
+
+        console.log("retrieving data")
+
+        const data = await res.json();
+
+        console.log("got the data = ",data)
+        
+        if (Array.isArray(data.posts)) {
+          setUploadedPosts(data.posts);
+        }
+      } catch (err) {
+        console.error("Failed to fetch uploaded posts:", err);
+      }
+    }
+    loadPosts();
+  }, []);
+
+  const allPosts = [...uploadedPosts, ...staticPosts];
 
 function handleScrollStoriesRight(){
     if(storiesScrollRef.current){
@@ -86,7 +123,7 @@ function handleScrolStorieslLeft(){
             <div className=" flex flex-col justify-center items-center max-w-[630px] w-full bg-black text-white ">
 
                 {/* outer container */}
-                {posts.map((item,index)=>(
+                {allPosts.map((item,index)=>(
                     <PostCard key={item.id || index} item={item} />
 
                 ))}

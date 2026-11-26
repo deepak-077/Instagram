@@ -1,10 +1,9 @@
 import { useState,useRef } from "react"
-import posts from "./posts";
 
 export default function PostCard({item}){
 
     const [currentImg,setCurrentImg]= useState(0);
-    const [likes,setLikes] = useState(0);
+    const [likes,setLikes] = useState(item.likes?? 0);
     const [allcomments,setAllComments]= useState<String[]>([])
     const [commentActive, setCommentActive] = useState(false);
     const [showcomments,setShowComments]=useState(false)
@@ -15,6 +14,18 @@ export default function PostCard({item}){
 
 
     const postScrollRef = useRef<HTMLDivElement | null>(null);
+
+    const images = Array.isArray(item.postedImg)
+  ? item.postedImg
+  : item.imageUrl
+    ? [item.imageUrl]
+    : [];
+
+const username = item.username || "you";
+const dp = item.dp || "/default-dp.png";
+const time = item.time || "Just now";
+const caption = item.caption || "";
+
 
     function handleScroll(){
         if(postScrollRef.current){
@@ -72,13 +83,13 @@ function handleCaption(){
 
                                 {/* dp image */}
                                 <div className="flex items-center max-w-[41px] h-[41px]">
-                                    <img className="max-w-[32px] h-[32px] rounded-full" src={item.dp} alt="" />
+                                    <img className="max-w-[32px] h-[32px] rounded-full" src={dp} alt="" />
                                 </div>
 
                                     {/* name and time of upload */}
                                     <div className="flex w-full max-w-[390px] h-[18px] gap-5">
                                         <div className="flex items-center max-w-[60px] h-[18px] gap-1" >
-                                            <span className=" text-sm">{item.username}</span>
+                                            <span className=" text-sm">{username}</span>
                                             {/* verified tag */}
                                             <span className=" flex justify-center items-center max-w-[12px] h-[12px]">
                                                 <img className=" max-w-[12px] h-[12px]" src="/verified.png" alt="" />
@@ -89,7 +100,7 @@ function handleCaption(){
 
                                         <div className=" w-full max-w-[47px] h-[18px] flex items-center gap-1.5">
                                         <span className="max-w-[7px] h-[18px] text-sm">.</span>
-                                        <time className="h-[17px] text-sm max-w-[19px]  "> {item.time} </time>
+                                        <time className="h-[17px] text-sm max-w-[19px]  "> {time} </time>
 
                                         </div>
                                     </div>
@@ -109,14 +120,14 @@ function handleCaption(){
                             
                             <div ref={postScrollRef} onScroll={handleScroll} className="flex overflow-x-auto snap-x snap-mandatory w-full max-w-[468px]  border-gray-600 no-scrollbar ">
                                 
-                                {item.postedImg.map((pics,index)=> (
+                                {images.map((pics,index)=> (
                                     <img key={index} className=" w-full max-w-[468px] max-h-[565px] h-auto shrink-0" src={pics} alt="" />
                                 ))}
                                 
                             </div>
 
                             {/* buttons for multiple images */}
-                            {item.postedImg.length>1 && (
+                            {images.length>1 && (
                                 
                                 <div className='  flex justify-between items-center w-full '>
                                     {currentImg>0 && (
@@ -129,7 +140,7 @@ function handleCaption(){
                                     )}
 
                                     
-                                    {currentImg<item.postedImg.length-1 && (
+                                    {currentImg < images.length-1 && (
                                         <button className='right-0 absolute top-1/2 transform -translate-y-1/2 w-full max-w-[45px] h-[57px] mx-2 pb-3 bg-transparent z-10' onClick={handleScrollPostRight}>
                                             <div className='w-full max-w-[45px] h-[45px] flex justify-center items-center'>
                                                 <img className='w-full max-w-[20px] h-[20px] bg-white rounded-full' src="/right.png" alt="" />
@@ -142,9 +153,9 @@ function handleCaption(){
 
                             {/* image dots for showing the image num we are at */}
 
-                            {item.postedImg.length > 1 && (
+                            {images.length > 1 && (
         <div className="absolute left-1/2 bottom-2 flex justify-center items-center gap-1.5 mt-2">
-          {item.postedImg.map((dot: any, idx: number) => (
+          {images.map((dot: any, idx: number) => (
             <span key={idx} className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                 currentImg === idx ? "w-3 bg-red-500" : "w-2 bg-gray-600"
               }` }
@@ -198,7 +209,7 @@ function handleCaption(){
 
                             {/* second section - total likes */}
                             <div className="max-w-[470px] w-full h-[18px] font-semibold text-sm">
-                                {item.likes} Likes
+                                {likes} Likes
                             </div>
 
                             {/* third section - caption */}
@@ -207,13 +218,13 @@ function handleCaption(){
 
                                 {/* make this to div and style accordingly */}
                                     <span className="inline-flex items-center gap-1">
-                                        <span className="font-semibold"> {item.username} </span>
+                                        <span className="font-semibold"> {username} </span>
                                         <img className="max-w-[12px] h-[12px] inline" src="/verified.png" alt="" />
                                     </span>
 
-                                        {item.caption}
+                                        {caption}
                                 </span>
-                                {item.caption.length>90 && (
+                                {caption.length>90 && (
                                 <span className='text-sm font-semibold cursor-pointer' onClick={handleCaption}>{captionExpand? "Less": "More"}</span>
                                 )}
                                    
@@ -224,7 +235,7 @@ function handleCaption(){
                                 <span className="text-sm text-gray-300 " onClick={handleComments}>{showcomments? "hide comments":  `Show ${allcomments.length} Comments`}</span>
 
                                 {showcomments && allcomments.map((item,index)=>(
-                                    <div className='h-[18px]'>{item}</div>
+                                    <div key={index} className='h-[18px]'>{item}</div>
                                 ))}
                             </div>
 

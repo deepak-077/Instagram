@@ -4,16 +4,21 @@ import { PrismaClient } from '@prisma/client'
 import fs from "node:fs";
 import path from "node:path";
 import multer from "multer";
+import crypto from "node:crypto"
 
 
 const app = express()
 const prisma = new PrismaClient()
+const uploadedPosts = [];
+const uploadDir = path.join(process.cwd(), "uploads");
 
 app.use(cors())
 app.use(express.json())
 
+app.use("/uploads", express.static(uploadDir));
 
-const uploadDir = path.join(process.cwd(), "uploads");
+
+
 fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
@@ -41,6 +46,14 @@ const upload = multer({
 
 
 // GET - Do not support request bodies (officially). so we will have to send them in query string
+
+
+
+// Fetch uploaded posts
+app.get("/posts", (_req, res) => {
+  return res.status(200).json({ posts: uploadedPosts });
+});
+
 
 app.post('/login', async (req, res) => {
   const { identifier, password  } = req.body;
@@ -119,23 +132,37 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
     const caption =
       typeof req.body.caption === "string" ? req.body.caption.trim() : "";
-    const imageUrl = `http://localhost:3001/uploads/${req.file.filename}`;
-    console.log("url = ",imageUrl);
+    const username =
+      typeof req.body.username === "string" && req.body.username.trim()
+        ? req.body.username.trim()
+        : "you";
+    const dp =
+      typeof req.body.dp === "string" && req.body.dp.trim()
+        ? req.body.dp.trim()
+        : "/default-dp.png";
 
-  
+    const imageUrl = `http://localhost:3001/uploads/${req.file.filename}`;
+
     const post = {
       id: crypto.randomUUID(),
-      imageUrl,
+      username,
+      dp,
+      time: "Just now",
+      postedImg: [imageUrl],
+      likes: 0,
       caption,
+      isOwnPost: true,
       createdAt: new Date().toISOString(),
     };
 
+    uploadedPosts.unshift(post);
     return res.status(201).json({ post });
   } catch (error) {
     console.error("Error uploading file:", error);
     return res.status(500).json({ error: "Failed to upload file." });
   }
 });
+
 
 app.listen(3001,()=>{
     console.log("server running")

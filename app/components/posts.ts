@@ -1,4 +1,4 @@
-const posts = [
+const staticPosts = [
     {
         username:"mahindra",
         time:"2d",
@@ -22,4 +22,4 @@ const posts = [
 
 ]
 
-export default posts;
+export default staticPosts;

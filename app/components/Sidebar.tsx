@@ -123,6 +123,9 @@ function Sidebar(){
       formData.append("image", selectedFile);
       formData.append("caption", caption);
 
+      // formData.append("username", currentUser.username);
+      // formData.append("dp", currentUser.dp || "/default-dp.png");
+
       // API route 
       const res = await axios.post("http://localhost:3001/upload", formData);
 
@@ -131,6 +134,7 @@ function Sidebar(){
       }
 
       if(res.status===201){
+        console.log("data= ",res.data)
         console.log("img upload successful");
       }
 
