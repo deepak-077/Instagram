@@ -51,6 +51,7 @@ const upload = multer({
 
 // Fetch uploaded posts
 app.get("/posts", (_req, res) => {
+  console.log("req coming...")
   return res.status(200).json({ posts: uploadedPosts });
 });
 

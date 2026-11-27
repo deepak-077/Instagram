@@ -24,6 +24,38 @@ function Middle(){
     const [showLeftArrow,setShowLeftArrow]=useState(false);
     const [uploadedPosts, setUploadedPosts] = useState<UploadedPost[]>([]);
 
+    const [progress,setProgress]=useState(0);
+    const [loading,setLoading]=useState(false)
+    
+
+    useEffect(()=>{
+        if(!loading){
+            return;
+        }
+
+        const timer= setInterval(() => {
+            setProgress((prev)=>{
+                if(prev>100){
+                    clearInterval(timer);
+                    setLoading(false)
+                    return 100;
+                }
+                console.log("progress = ", prev)
+                setProgressbar(progress)
+                return prev+1
+            })
+        },20)
+
+        return()=>clearInterval(timer);
+    },[loading])
+
+    function loadingAnimation(){
+        setProgress(0);
+        setLoading(true)
+        setProgressbar(0)
+    }
+    
+
 
     useEffect(() => {
     async function loadPosts() {
@@ -45,6 +77,7 @@ function Middle(){
       }
     }
     loadPosts();
+    loadingAnimation()
   }, []);
 
   const allPosts = [...uploadedPosts, ...staticPosts];
@@ -70,7 +103,7 @@ function handleScrolStorieslLeft(){
         {/* stories and photos */}
         <div className="flex flex-col max-w-[630px] w-full mt-4">
 
-            <div className="relative flex items-center max-w-[630px] w-full h-[124px] overflow-hidden">
+            <div className="relative flex items-center max-w-[630px] w-full h-[124px] overflow-hidden border border-amber-300">
 
                 {/* left Arrow */}
                 {showLeftArrow && (
@@ -113,6 +146,20 @@ function handleScrolStorieslLeft(){
                 </button>
 
             </div>
+
+            {/* progress bar */}
+            {loading && (
+                <div className='overflow-hidden w-full'>
+                    <div style={{width:progress *4}} className={`flex justify-center h-4 bg-lime-400 text-sm rounded-full ` }>
+                        Uploading {progress}%
+
+                    </div>
+
+                </div>
+                
+
+            )}
+            
             
             
 {/* ------------------------------------------------------POST ---------------------------------  */}
